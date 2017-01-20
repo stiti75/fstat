@@ -24,6 +24,7 @@ services:
         calls:
             - [ setTranslationDomain, [FootstatBundle]]
             - [ setTemplate, [show, FootstatBundle:Admin:Championnats\show.html.twig]]
+            - [ setTemplate, [base_list_field, FootstatBundle:Admin:Championnats\list_field.html.twig]]
             
         
     

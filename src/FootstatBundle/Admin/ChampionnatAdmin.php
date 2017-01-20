@@ -53,7 +53,7 @@ class ChampionnatAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('nom')
+            ->addIdentifier('nom', null, array('route' => array('name' => 'show')))
             ->add('url')
             ->add('media.alt')
             
