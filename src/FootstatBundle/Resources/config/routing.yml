@@ -6,9 +6,7 @@ Acceuil:
 Championnats:
     path:     /championnats
     defaults: { _controller: FootstatBundle:Championnats:Championnats }
-Equipes:
-    path:     /equipes/add
-    defaults: { _controller: FootstatBundle:Equipes:Generer }
+
 
 AllEquipesChampionnat:
     path:     /equipes/add/{id}
@@ -18,22 +16,10 @@ ChampionnatEquipes:
     path:     /championnats/{championnat}
     defaults: { _controller: FootstatBundle:Equipes:Championnat }
     
-ChampionnatAdd:
-    path:     /championnat/add
-    defaults: { _controller: FootstatBundle:Championnats:Add }
-
 EquipePresentation:
     path:     /equipes/{equipe}
     defaults: { _controller: FootstatBundle:Equipes:Equipe }
-    
-Medias:
-    path:     /medias
-    defaults: { _controller: FootstatBundle:Media:Medias }
-MediaAdd:
-    path:     /medias/add
-    defaults: { _controller: FootstatBundle:Media:Add }
-    
-
+       
 Favoris:
     path:     /favoris
     defaults: { _controller: FootstatBundle:Favoris:Favoris }

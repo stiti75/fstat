@@ -33,11 +33,6 @@ class ChampionnatAdmin extends AbstractAdmin
                 'expanded' => false,
                 'multiple' => false
         ))
-
-            // if no type is specified, SonataAdminBundle tries to guess it
-//            ->add('body')
-//
-//            // ...
        ;
     }
 
@@ -55,7 +50,14 @@ class ChampionnatAdmin extends AbstractAdmin
         $listMapper
             ->addIdentifier('nom', null, array('route' => array('name' => 'show')))
             ->add('url')
-            ->add('media.alt')
+            ->add('media.url', 'string', array('template' => 'FootstatBundle:Admin:Championnats/list_media.html.twig'))
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
             
 
        ;

@@ -9,15 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 include_once 'Classe\simple_html_dom.php';
 
 class MatchesController extends Controller {
-
-    public function ChampionnatAction($championnat) {
-        // On récupère l'EntityManager
-//        $em = $this->getDoctrine()->getManager();
-//        $repository = $em->getRepository('FootstatBundle:Matche');
-//        $matches = $repository->byChampionnat($championnat);
-//        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('matches' => $matches));
-    }
-
     public function MatcheAction($equipe) {
         // On récupère l'EntityManager
 //        $em = $this->getDoctrine()->getManager();

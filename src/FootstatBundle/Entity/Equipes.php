@@ -42,7 +42,7 @@ class Equipes
      * @ORM\Column(name="Classement", type="integer")
      */
     private $classement;
-    
+     
     /**
      * @ORM\OneToOne(targetEntity="FootstatBundle\Entity\Media", cascade={"persist"})
      */

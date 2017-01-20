@@ -17,45 +17,50 @@ class ChampionnatsCRUDController extends CRUDController {
         $equipes = $repository->byChampionnat($championnat);
         $matches = $em->getRepository('FootstatBundle:Matches')->byChampionnat($championnat);
         return $this->render('FootstatBundle:Admin:Championnats\listeEquipes.html.twig', array('equipes' => $equipes, 'matches' => $matches));
-
     }
-    //request d'url    
-    function geturlhtml($url){
-     $html = file_get_html($url);
-     return $html;
- }
 
+    //request d'url    
+    function geturlhtml($url) {
+        $opts = array(
+            'http' => array(
+                'method' => "GET",
+                'proxy' => 'tcp://10.158.10.16:8181',
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $html = file_get_html($url, false, $context);
+        return $html;
+    }
 
     // recuperation des equipes championnat par URL
- public function getallequipesAction($id) {
-    $em = $this->getDoctrine()->getManager();
-    $championnat = $em->getRepository('FootstatBundle:Championnat')->find($id);
-    $html1 = $this->geturlhtml($championnat->getUrl());
-    $html1 = $html1->find('span[class=team-label]');
-    $i = 1;
-    foreach ($html1 as $element) {
-        $equipe = new Equipes();
-        $lieneq = $element->find('a')[0]->href;
-        $lieneq = "http://www.lequipe.fr" . $lieneq;
+    public function getallequipesAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $championnat = $em->getRepository('FootstatBundle:Championnat')->find($id);
+        $html1 = $this->geturlhtml($championnat->getUrl());
+        $html1 = $html1->find('span[class=team-label]');
+        $i = 1;
+        foreach ($html1 as $element) {
+            $equipe = new Equipes();
+            $lieneq = $element->find('a')[0]->href;
+            $lieneq = "http://www.lequipe.fr" . $lieneq;
 
-        $lequipe = $em->getRepository('FootstatBundle:Equipes')->findByNom($element->plaintext);
-        if (!$lequipe) {
-            $equipe->setLien($lieneq);
-            $equipe->setNom($element->plaintext);
-            $equipe->setClassement($i);
-            $equipe->setChampionnat($championnat);
-            $em->persist($equipe);
-            $em->flush();
-        } else {
-            $lequipe[0]->setClassement($i);
-            $em->persist($lequipe[0]);
-            $em->flush();
+            $lequipe = $em->getRepository('FootstatBundle:Equipes')->findByNom($element->plaintext);
+            if (!$lequipe) {
+                $equipe->setLien($lieneq);
+                $equipe->setNom($element->plaintext);
+                $equipe->setClassement($i);
+                $equipe->setChampionnat($championnat);
+                $em->persist($equipe);
+                $em->flush();
+            } else {
+                $lequipe[0]->setClassement($i);
+                $em->persist($lequipe[0]);
+                $em->flush();
+            }
+            $i = $i + 1;
         }
-        $i = $i + 1;
+        return $this->ChampionnatAction($championnat);
     }
-    return $this->ChampionnatAction($championnat);
-}
-
-
 
 }

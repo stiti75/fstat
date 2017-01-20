@@ -17,7 +17,6 @@ class EquipesAdminController extends Controller {
         $equipes = $repository->byChampionnat($championnat);
         $matches = $em->getRepository('FootstatBundle:Matches')->byChampionnat($championnat);
         return $this->render('FootstatBundle:Admin:Championnats\listeEquipes.html.twig', array('equipes' => $equipes, 'matches' => $matches));
-
     }
     //request d'url    
     // recuperation des matches d'une équipe par URL

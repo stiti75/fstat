@@ -4,21 +4,6 @@
  * and open the template in the editor.
  */
 
-function addmatch() {
-//    $("a.fav").click(function () {
-    var this$ = $(this);
-    var ideq = this$.attr("ideq");
-    $.ajax({
-        url: "http://localhost/footstat/web/app_dev.php/matches/" + ideq, type: 'get',
-        beforeSend: function () {
-            $('#matches').html('<div class="loading"></div>');     
-        },
-        success: function(data){
-           $('#matches').html(data);  
-        }
-        
-    });
-}
 
 function addFav() {
 //    $("a.fav").click(function () {
@@ -61,7 +46,7 @@ function removeFav() {
 $('a.fav').bind('click', addFav);
 $('a.nonfav').bind('click', removeFav);
 $('a.supprfav').bind('click', supprfav);
-$('a#addmatch').bind('click', addmatch);
+
 
 function supprfav() {
     var this$ = $(this);

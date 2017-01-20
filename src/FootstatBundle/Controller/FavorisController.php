@@ -21,24 +21,12 @@ class FavorisController extends Controller
     
     public function AjouterAction($id)
     {
-  
-//        $ideq = '';
-//        $ideq = $request->request->get('ideq');
         $session = $this->getRequest()->getSession();
         if (!$session->has('favoris')) $session->set('favoris',array());
         $favoris = $session->get('favoris');
         array_push($favoris, intval($id));
-  
-            
-//        $this->get('session')->getFlashBag()->add('success','Article ajouté avec succès');
-        
-            
         $session->set('favoris',$favoris);
-
         return $this->container->get('templating')->renderResponse('FootstatBundle:Default:Favoris\liste.html.twig');
-
-        
-//        return $this->redirect($this->generateUrl('Favoris'));
     }
     
     public function SupprimerAction($id)
@@ -47,11 +35,8 @@ class FavorisController extends Controller
         $favoris = $session->get('favoris');
         var_dump($favoris);
         unset($favoris[array_search(intval($id), $favoris)]);
-        var_dump($favoris);
         $session->set('favoris',$favoris);
         $this->get('session')->getFlashBag()->add('success','Equipe supprimée avec succès');
-
-
         return $this->redirect($this->generateUrl('Favoris')); 
     }
     

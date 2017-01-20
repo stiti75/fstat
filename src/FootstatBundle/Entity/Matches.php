@@ -20,6 +20,14 @@ class Matches
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="type", type="integer")
+     */
+    private $type;
 
     /**
      * 
@@ -180,4 +188,28 @@ class Matches
   {
     return $this->championnat;
   }
+  
+      /**
+     * Set type
+     *
+     * @param integer $type
+     * @return Matches
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return integer 
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+  
 }
