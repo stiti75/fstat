@@ -1,0 +1,102 @@
+
+{% extends "::layout/layout.html.twig" %}  
+{% block body %}
+{% if matchesdom|length>0 and matchesext|length>0 %}
+    {% set nbVdom = 0 %}{% set nbVext = 0 %} {% set nbNdom = 0 %} {% set nbNext = 0 %} {% set nbDdom = 0 %} {% set nbDext = 0 %}  
+    {% for matchedom in matchesdom|reverse %}
+{% if matchedom.score1 > matchedom.score2 %}{% set nbVdom = nbVdom+1 %}{% elseif matchedom.score1 < matchedom.score2 %}{% set nbDdom = nbDdom+1 %}{% else %}{% set nbNdom = nbNdom+1 %}{% endif %}
+{% endfor %}
+{% for matcheext in matchesext|reverse %}
+{% if matcheext.score1 > matcheext.score2 %}{% set nbDext = nbDext+1 %}{% elseif matcheext.score1 < matcheext.score2 %}{% set nbVext = nbVext+1 %}{% else %}{% set nbNext = nbNext+1 %}{% endif %}
+{% endfor %}
+{% set pctVdom = 100*(nbVdom/matchesdom|length) %}
+{% set pctVext = 100*(nbVext/matchesext|length) %}
+{% set pctNdom = 100*(nbNdom/matchesdom|length) %}
+{% set pctNext = 100*(nbNext/matchesext|length) %}
+{% set pctDdom = 100*(nbDdom/matchesdom|length) %}
+{% set pctDext = 100*(nbDext/matchesext|length) %}
+{% endif %}
+<div class="col-sm-2">
+    {% include '::modulesUsed/navigation.html.twig' %}
+</div>
+<div class="col-sm-10">
+
+    <div class="row well">
+        <div class="col-sm-6">
+            <h4>{{equip.nom}}</h4>
+            <p><span class="title1">Classement : </span> {{equip.classement}}</p>
+            <p><span class="title1">Championnat : </span> {{equip.championnat.nom}}</p>
+        </div>
+        {% if matchesdom|length>0 and matchesext|length>0 %}
+        <div class="col-sm-6">
+            <div class="row">
+                <h4>Statistiques de l'équipe</h4>
+                <table class="table table-condensed sty-table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Stat</th>
+                            <th>Domicile</th>
+                            <th>Extérieur</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Nombre de matches joués</b></td>
+                            <td>{{ matchesdom|length}}</td>
+                            <td>{{ matchesext|length }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Nombre de matches Gagnés</b></td>
+                            <td>{{ nbVdom }}</td>
+                            <td>{{ nbVext }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Nombre de matches Nuls</b></td>
+                            <td>{{ nbNdom }}</td>
+                            <td>{{ nbNext }}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Nombre de matches Perdus</b></td>
+                            <td>{{ nbDdom }}</td>
+                            <td>{{ nbDext }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <h6>Victoire à domicile</h6>
+                <div class="progress">
+                    
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVdom|round}}%;">
+                        {{pctVdom|round}}%
+                    </div>
+                </div>
+                <h6>Victoire à l'éxterieur</h6>
+                <div class="progress">
+                    
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVext|round}}%;">
+                        {{pctVext|round}}%
+                    </div>
+                </div>
+                <h6>Nul à domicile</h6>
+                <div class="progress">
+                    
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
+                        {{pctNdom|round}}%
+                    </div>
+                </div>
+            </div>   
+        </div>
+        {% endif %}
+        <div class="col-sm-2 ">
+            <a href="#" id="addmatch" ideq="{{equip.id}}" class="btn btn-primary">Ajouter les matches</a>
+        </div>
+    </div>               
+    <div class="row" id="matches">
+        {% include '::modulesUsed/EqMatches.html.twig' %}
+    </div>
+</div>
+
+
+
+{% endblock %}

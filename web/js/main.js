@@ -1,0 +1,76 @@
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+function addmatch() {
+//    $("a.fav").click(function () {
+    var this$ = $(this);
+    var ideq = this$.attr("ideq");
+    $.ajax({
+        url: "http://localhost/footstat/web/app_dev.php/matches/" + ideq, type: 'get',
+        beforeSend: function () {
+            $('#matches').html('<div class="loading"></div>');     
+        },
+        success: function(data){
+           $('#matches').html(data);  
+        }
+        
+    });
+}
+
+function addFav() {
+//    $("a.fav").click(function () {
+    var this$ = $(this);
+    var ideq = this$.attr("ideq");
+    $.ajax({
+        url: "http://localhost/footstat/web/app_dev.php/favorisajouter/" + ideq, type: 'get',
+        beforeSend: function () {
+//            this$.html('<div class="loading"></div>')
+            this$.html('<span class="glyphicon glyphicon-star"></span>')
+            this$.unbind('click');
+        },
+        success: function () {
+            this$.html('<span class="glyphicon glyphicon-star"></span>')
+            this$.attr('title', '[-] Remove from favorites')
+            this$.unbind('click')
+            this$.bind('click', removeFav);
+        }
+    });
+}
+
+function removeFav() {
+    var this$ = $(this);
+    var ideq = this$.attr("ideq");
+    $.ajax({
+        url: "http://localhost/footstat/web/app_dev.php/supprimer-favoris/" + ideq, type: 'get',
+        beforeSend: function () {
+            this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+            this$.unbind('click');
+        },
+        success: function () {
+            this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+            this$.attr('title', '[+] Add as favorite')
+            this$.unbind('click')
+            this$.bind('click', addFav);
+        }
+    });
+}
+//this will make the link listen to function addFav (you might know this already)
+$('a.fav').bind('click', addFav);
+$('a.nonfav').bind('click', removeFav);
+$('a.supprfav').bind('click', supprfav);
+$('a#addmatch').bind('click', addmatch);
+
+function supprfav() {
+    var this$ = $(this);
+    var ideq = this$.attr("ideq");
+    $.ajax({
+        url: "http://localhost/footstat/web/app_dev.php/supprimer-favoris/" + ideq, type: 'get',
+        beforeSend: function () {
+            this$.html('<div class="loading"></div>')
+            this$.closest("li").remove();
+        },
+        success: function () { }});
+}

@@ -1,0 +1,71 @@
+{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+
+{% block show_groups %}
+    <div class="row">
+        {% block field_row %}
+            {% for code in groups %}
+                {% set show_group = admin.showgroups[code] %}
+
+                <div class="{{ show_group.class|default('col-md-12') }} {{ no_padding|default(false) ? 'nopadding' }}">
+                    <div class="{{ show_group.box_class }}">
+                        <div class="box-header">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h4 class="box-title">
+                                        {{object.nom}}
+                                    </h4>
+                                </div>
+                                    
+                                <div class="col-md-2">
+                                    <a href="#" id="addequipes" idcham="{{object.id}}" class="btn btn-primary">ajouter équipes</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            <img src="{{object.media.url}}" width="100" height="100" style="margin-left:10px;margin-bottom:10px;">
+                            
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+
+    </div>
+
+    {{ render(controller(
+        'FootstatBundle:EquipesAdmin:Championnat',
+        { 'championnat': object.id }
+    )) }}   
+
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $("a#addequipes").click(function () {
+                var this$ = $(this);
+                var idcham = this$.attr("idcham");
+
+
+                $.ajax({
+                    url: "{{ admin.generateUrl('getallequipes',{'id':object.id}) }}",
+                    type: 'get',
+                    beforeSend: function () {
+                        $('#equipes').html('<div class="loading"></div>');
+                    },
+                    error: function (xhr, status, error) {
+                        
+                        console.log(xhr.responseText);
+                    },
+                    success: function (data) {
+                        $('#equipes').html(data);
+                    }
+
+                });
+            });
+        </script>
+    {% endblock %}
+
+
+
+
+{% endblock %}

@@ -1,0 +1,49 @@
+
+   <div class="col-sm-5 thumbnail" id="home">
+            <h4>Matches domicile</h4></br>
+            <table class="table table-condensed sty-table">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Date</th>
+                        <th>Domicile</th>
+                        <th>Score</th>
+                        <th>Extérieur</th>
+                    </tr>
+                </thead>
+                <tbody>                              
+                    {% for matchedom in matchesdom|reverse %}
+                        <tr class="{% if matchedom.score1 > matchedom.score2 %}bg-success{% elseif matchedom.score1 < matchedom.score2 %}bg-danger{% else %}bg-info{% endif %}">
+                            <td>{{ matchedom.date|date('d-m-Y') }}</td>
+                            <td><a href="{{ path('admin_footstat_equipes_show', {'id': matchedom.equipeDom.id}) }}">{{ matchedom.equipeDom.nom }}</a></td>
+                            <td>{{ matchedom.score1 }} : {{ matchedom.score2}}</td>
+                            <td><a href="{{ path('admin_footstat_equipes_show', {'id': matchedom.equipeExt.id}) }}">{{ matchedom.equipeExt.nom }}</a></td>
+                        {% endfor %}  
+                    </tr>
+
+                </tbody>
+            </table>
+        </div> 
+        <div class="col-sm-5 thumbnail" id="maway">
+            <h4>Matches Extérieur</h4></br>
+            <table class="table table-condensed sty-table">
+                <thead class="thead-inverse">
+                    <tr>
+                        <th>Date</th>
+                        <th>Domicile</th>
+                        <th>Score</th>
+                        <th>Extérieur</th>
+                    </tr>
+                </thead>
+                <tbody>                              
+                    {% for matcheext in matchesext|reverse %}
+                        <tr class="{% if matcheext.score1 < matcheext.score2 %}bg-success{% elseif matcheext.score1 > matcheext.score2 %}bg-danger{% else %}bg-info{% endif %}">
+                            <td>{{ matcheext.date|date('d-m-Y') }}</td>
+                            <td><a href="{{ path('admin_footstat_equipes_show', {'id': matcheext.equipeDom.id}) }}">{{ matcheext.equipeDom.nom }}</a></td>
+                            <td>{{ matcheext.score1 }} : {{ matcheext.score2}}</td>
+                            <td><a href="{{ path('admin_footstat_equipes_show', {'id': matcheext.equipeExt.id}) }}">{{ matcheext.equipeExt.nom }}</a></td>
+                        {% endfor %}  
+                    </tr>
+
+                </tbody>
+            </table>    
+        </div>

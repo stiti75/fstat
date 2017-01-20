@@ -1,0 +1,51 @@
+
+Acceuil:
+    path:     /
+    defaults: { _controller: FootstatBundle:Championnats:Championnats }
+    
+Championnats:
+    path:     /championnats
+    defaults: { _controller: FootstatBundle:Championnats:Championnats }
+Equipes:
+    path:     /equipes/add
+    defaults: { _controller: FootstatBundle:Equipes:Generer }
+
+AllEquipesChampionnat:
+    path:     /equipes/add/{id}
+    defaults: { _controller: FootstatBundle:EquipesAdmin:Getallequipes }
+
+ChampionnatEquipes:
+    path:     /championnats/{championnat}
+    defaults: { _controller: FootstatBundle:Equipes:Championnat }
+    
+ChampionnatAdd:
+    path:     /championnat/add
+    defaults: { _controller: FootstatBundle:Championnats:Add }
+
+EquipePresentation:
+    path:     /equipes/{equipe}
+    defaults: { _controller: FootstatBundle:Equipes:Equipe }
+    
+Medias:
+    path:     /medias
+    defaults: { _controller: FootstatBundle:Media:Medias }
+MediaAdd:
+    path:     /medias/add
+    defaults: { _controller: FootstatBundle:Media:Add }
+    
+
+Favoris:
+    path:     /favoris
+    defaults: { _controller: FootstatBundle:Favoris:Favoris }
+
+AjouterFavoris:
+    path:     /favorisajouter/{id}
+    defaults: { _controller: FootstatBundle:Favoris:Ajouter }
+
+SupprimerFavoris:
+    path:     /supprimer-favoris/{id}
+    defaults: { _controller: FootstatBundle:Favoris:Supprimer }
+    
+AllmatchEquipe:
+    path:     /matches/{equipe}
+    defaults: { _controller: FootstatBundle:Equipes:Allmatch }

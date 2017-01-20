@@ -1,0 +1,9 @@
+{% if championnats|length != 0 %}
+    {% for championnat in championnats %}
+        
+      <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}" class="list-group-item">{{ championnat.nom }}</a>
+ 
+    {% endfor %}
+{% endif %}
+
+

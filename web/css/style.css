@@ -1,0 +1,32 @@
+body {
+	padding-bottom: 40px;
+    padding-top: 10px;
+
+}
+
+.margin {
+    margin-bottom: 10px;
+}
+
+.block-title {
+    background-color: #cccccc;
+}
+
+.sty-table {
+    font-size: 12px;
+    font-weight: bold; 
+    
+    
+}
+
+.title1 {
+    color: #999999;
+    font-weight: bold;
+}
+
+.loading {
+    height: 20px;
+    width: 20px;
+    background: url('../img/loading.gif');
+}
+

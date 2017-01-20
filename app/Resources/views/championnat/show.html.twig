@@ -1,0 +1,36 @@
+{% extends "::layout/layoutAdmin.html.twig" %}  
+
+{% block body %}
+    <h1>Championnat</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ championnat.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ championnat.nom }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ championnat.url }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('championnat_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('championnat_edit', { 'id': championnat.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

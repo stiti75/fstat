@@ -1,0 +1,30 @@
+
+{% extends "::layout/layout.html.twig" %}  
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="span3">
+                {% include '::modulesUsed/navigation.html.twig' %}
+            </div>
+            <div class="span9">
+                {% if medias|length != 0 %}
+                    <ul class="thumbnails">
+                        {% for media in medias %}
+                            <li class="span2">
+                                <div class="thumbnail">
+                                    <img src="{{ media.url}}" alt="{{ media.alt }}" width="150" height="100">
+                                    <div class="caption">
+                                        <h5>{{ media.alt}}</h5>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    Aucun média
+                {% endif %}
+            </div>   
+        </div> 
+    </div> 
+
+{% endblock %}

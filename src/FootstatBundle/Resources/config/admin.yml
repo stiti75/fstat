@@ -1,0 +1,53 @@
+# src/AppBundle/Resources/config/admin.yml
+
+services:
+    app.admin.media:
+        class: FootstatBundle\Admin\MediaAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Media" }
+        arguments:
+            - ~
+            - FootstatBundle\Entity\Media
+            - ~
+        calls:
+            - [ setTranslationDomain, [FootstatBundle]]
+    
+    app.admin.championnat:
+        class: FootstatBundle\Admin\ChampionnatAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Championnat" }
+        arguments:
+            - ~
+            - FootstatBundle\Entity\Championnat
+            - 'FootstatBundle:ChampionnatsCRUD'
+            - ~
+        calls:
+            - [ setTranslationDomain, [FootstatBundle]]
+            - [ setTemplate, [show, FootstatBundle:Admin:Championnats\show.html.twig]]
+            
+        
+    
+    app.admin.equipes:
+        class: FootstatBundle\Admin\EquipesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Equipes" }
+        arguments:
+            - ~
+            - FootstatBundle\Entity\Equipes
+            - 'FootstatBundle:EquipesCRUD'
+            - ~
+        calls:
+            - [ setTranslationDomain, [FootstatBundle]]
+            - [ setTemplate, [show, FootstatBundle:Admin:Equipes\show.html.twig]]
+            
+    
+    app.admin.matches:
+        class: FootstatBundle\Admin\MatchesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Matches" }
+        arguments:
+            - ~
+            - FootstatBundle\Entity\Matches
+            - ~
+        calls:
+            - [ setTranslationDomain, [FootstatBundle]]

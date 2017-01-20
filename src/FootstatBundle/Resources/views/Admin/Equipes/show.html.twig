@@ -1,0 +1,70 @@
+{% extends 'SonataAdminBundle:CRUD:base_show.html.twig' %}
+
+{% block show_groups %}
+    <div class="row">
+        {% block field_row %}
+            {% for code in groups %}
+                {% set show_group = admin.showgroups[code] %}
+
+                <div class="{{ show_group.class|default('col-md-12') }} {{ no_padding|default(false) ? 'nopadding' }}">
+                    <div class="{{ show_group.box_class }}">
+                        <div class="box-header">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h4 class="box-title">
+                                        {{object.nom}}
+                                    </h4>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="#" id="addmatches" idcham="{{object.id}}" class="btn btn-primary">ajouter les macthes</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-body table-responsive no-padding">
+                            
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% endblock %}
+
+    </div>
+    <div class="row" id="listematches">
+    {{ render(controller(
+        'FootstatBundle:EquipesAdmin:Allmatch',
+        { 'equipe': object.id }
+    )) }}   
+    </div>
+
+    {% block javascripts %}
+        {{ parent() }}
+        <script type="text/javascript">
+            $("a#addmatches").click(function () {
+                var this$ = $(this);
+                var idcham = this$.attr("idcham");
+
+
+                $.ajax({
+                    url: "{{ admin.generateUrl('allmatches',{'id':object.id}) }}",
+                    type: 'get',
+                    beforeSend: function () {
+                        $('#listematches').html('<div class="loading"></div>');
+                    },
+                    error: function (xhr, status, error) {
+                        
+                        console.log(xhr.responseText);
+                    },
+                    success: function (data) {
+                        $('#listematches').html(data);
+                    }
+
+                });
+            });
+        </script>
+    {% endblock %}
+
+
+
+
+{% endblock %}

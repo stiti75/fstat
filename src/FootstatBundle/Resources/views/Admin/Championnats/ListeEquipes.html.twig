@@ -1,0 +1,54 @@
+         <div id="equipes" class="row">
+            <div class="col-md-5">
+                <div class="box box-primary">
+                    <h4 class="box-title">Liste des équipes</h4>
+                    <table class="table table-condensed" style="background-color: #fff;">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Equipe</th>
+                                <th>Classement</th>
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            {% for equipe in equipes %}
+                                <tr>
+                                    <td><a href="{{ path('admin_footstat_equipes_show', {id: equipe.id})  }}">{{ equipe.nom }}</a></td>
+                                    <td>{{ equipe.classement }}</td>  
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table> 
+                </div>
+                
+            </div>
+            <div class="col-md-5 offset-md-2">
+                <div class="box box-primary">
+                 <h4 class="box-title">Derniers Matches</h4>
+                 <table class="table table-condensed" style="background-color: #fff;">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Date</th>
+                            <th>Domicile</th>
+                            <th>Score</th>
+                            <th>Extérieur</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% if matches|reverse>0 %}
+                            {% for matche in matches|reverse %}
+                                <tr>
+                                    <td>{{ matche.date|date('d-m-Y') }}</td>
+                                    <td><a href="{{ path('admin_footstat_equipes_show', {id: matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
+                                    <td>{{ matche.score1 }} : {{ matche.score2}}</td>
+                                    <td><a href="{{ path('admin_footstat_equipes_show', {id: matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
+                                {% endfor %} 
+
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table> 
+            </div>  
+        </div>
+    </div> 
+
+

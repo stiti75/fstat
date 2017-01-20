@@ -1,0 +1,51 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+{% block fos_user_content %}
+    <div class="col-sm-2">
+        <div class="list-group">
+            {% include '::modulesUsed/navigation.html.twig' %}
+        </div>    
+    </div>
+
+    <div class="col-sm-10">
+        <h3>Connexion</h3>
+        <div class="row well">
+
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+          
+            <form class="col-sm-4" action="{{ path("fos_user_security_check") }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <div class="input-group">
+                    <i class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-user"></span></i>
+                    <input type="text" class="form-control" placeholder="{{ 'security.login.username'|trans }}" aria-describedby="basic-addon1" name="_username" value="{{ last_username }}" required="required">
+                </div>
+                <div class="input-group">
+                    <i class="input-group-addon" id="basic-addon1"><span class="glyphicon glyphicon-lock"></span></i>
+                    <input type="password" class="form-control" placeholder="{{ 'security.login.password'|trans }}" aria-describedby="basic-addon1" name="_password" required="required">
+                </div>
+                <div class="input-group">
+                    
+                    <label for="remember_me"><span class="label label-info"><input type="checkbox" aria-label="{{ 'security.login.remember_me'|trans }}" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans }}</span></label>
+                 
+                   
+                </div>
+                <div class="input-group">
+                
+                    <input type="submit" class="form-control btn-primary" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+                </div>
+                </form>
+     
+
+
+
+    
+</div>
+</div>
+
+{% endblock fos_user_content %}
+
+
+

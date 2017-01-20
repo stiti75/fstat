@@ -1,0 +1,4 @@
+services:
+#    footstat.example:
+#        class: FootstatBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]
