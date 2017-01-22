@@ -20,6 +20,7 @@ class EquipesAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('allmatches', $this->getRouterIdParameter().'/allmatches');
+        $collection->add('macthesEquipe', $this->getRouterIdParameter().'/macthesEquipe');
 
     }
     // Fields to be shown on create/edit forms
@@ -69,6 +70,13 @@ class EquipesAdmin extends AbstractAdmin
             ->add('classement')
             ->add('lien')
             ->add('media.alt')
+            ->add('_action', 'actions', array(
+                'actions' => array(
+                    'show' => array(),
+                    'edit' => array(),
+                    'delete' => array(),
+                )
+            ))
 
        ;
     }

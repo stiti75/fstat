@@ -50,7 +50,7 @@ class Equipes
     
     /**
     * @ORM\ManyToOne(targetEntity="FootstatBundle\Entity\Championnat")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(name="Championnat_id", referencedColumnName="id", onDelete="CASCADE")
     */
     private $championnat;
     

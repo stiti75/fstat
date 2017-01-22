@@ -20,6 +20,7 @@ class ChampionnatAdmin extends AbstractAdmin
     protected function configureRoutes(RouteCollection $collection)
     {
         $collection->add('getallequipes', $this->getRouterIdParameter().'/getallequipes');
+        
     }
     // Fields to be shown on create/edit forms
     protected function configureFormFields(FormMapper $formMapper)

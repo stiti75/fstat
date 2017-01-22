@@ -18,18 +18,14 @@ class ChampionnatsCRUDController extends CRUDController {
         $matches = $em->getRepository('FootstatBundle:Matches')->byChampionnat($championnat);
         return $this->render('FootstatBundle:Admin:Championnats\listeEquipes.html.twig', array('equipes' => $equipes, 'matches' => $matches));
     }
-
+    
     //request d'url    
     function geturlhtml($url) {
-        $opts = array(
-            'http' => array(
-                'method' => "GET",
-                'proxy' => 'tcp://10.158.10.16:8181',
-            )
-        );
-
-        $context = stream_context_create($opts);
-        $html = file_get_html($url, false, $context);
+        $context = stream_context_create(array('http' => array('header' => 'Accept-Charset: utf-8')));
+        $html = file_get_html($url,null,$context);
+//        $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
+//        var_dump($html);
+//        die();
         return $html;
     }
 
@@ -38,9 +34,23 @@ class ChampionnatsCRUDController extends CRUDController {
         $em = $this->getDoctrine()->getManager();
         $championnat = $em->getRepository('FootstatBundle:Championnat')->find($id);
         $html1 = $this->geturlhtml($championnat->getUrl());
+        
         $html1 = $html1->find('span[class=team-label]');
+        
+       
         $i = 1;
         foreach ($html1 as $element) {
+            
+            $nom= $element->plaintext;
+            $nom= html_entity_decode($nom) ;
+
+//            $nom = str_replace('cuisine' ,'ê',$nom);
+//            $nom = str_replace('&eacute;' ,'é',$nom);
+//            $nom = str_replace('cuisine' ,'è',$nom);
+//            $nom = str_replace('cuisine' ,'ç',$nom);
+//            var_dump($nom);
+//            $nom = iconv("ISO-8859-1", "UTF-8", $nom);
+//            var_dump($nom);
             $equipe = new Equipes();
             $lieneq = $element->find('a')[0]->href;
             $lieneq = "http://www.lequipe.fr" . $lieneq;
@@ -48,7 +58,7 @@ class ChampionnatsCRUDController extends CRUDController {
             $lequipe = $em->getRepository('FootstatBundle:Equipes')->findByNom($element->plaintext);
             if (!$lequipe) {
                 $equipe->setLien($lieneq);
-                $equipe->setNom($element->plaintext);
+                $equipe->setNom($nom);
                 $equipe->setClassement($i);
                 $equipe->setChampionnat($championnat);
                 $em->persist($equipe);

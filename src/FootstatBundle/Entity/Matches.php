@@ -32,21 +32,21 @@ class Matches
     /**
      * 
      * @ORM\ManyToOne(targetEntity="FootstatBundle\Entity\Equipes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="equipedom_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $equipeDom;
 
     /**
      * @ORM\ManyToOne(targetEntity="FootstatBundle\Entity\Equipes")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="equipeext_id", referencedColumnName="id", onDelete="CASCADE")
      *
      */
     private $equipeExt;
 
     /**
-     * @var date
+     * @var datetime
      *
-     * @ORM\Column(name="Date", type="date")
+     * @ORM\Column(name="Date", type="datetime")
      */
     private $date;
 
@@ -68,7 +68,7 @@ class Matches
     
     /**
     * @ORM\ManyToOne(targetEntity="FootstatBundle\Entity\Championnat")
-    * @ORM\JoinColumn(nullable=false)
+    * @ORM\JoinColumn(name="championnat_id", referencedColumnName="id", onDelete="CASCADE")
     */
     private $championnat;
 
@@ -111,7 +111,7 @@ class Matches
     /**
      * Set date
      *
-     * @param date $date
+     * @param datetime $date
      * @return Matches
      */
     public function setDate($date)
@@ -124,7 +124,7 @@ class Matches
     /**
      * Get date
      *
-     * @return date
+     * @return datetime
      */
     public function getDate()
     {

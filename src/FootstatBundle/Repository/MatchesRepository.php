@@ -20,6 +20,16 @@ class MatchesRepository extends EntityRepository
                 ->setParameter('championnat', $championnat)
                 ->orderBy('u.date', 'ASC')
                 ->setMaxResults(10);
+        return $db->getQuery()->getResult();                
+    }
+    public function byNextmatchs($equipe){
+        $db = $this->createQueryBuilder('u')
+                ->select('u')
+                ->andWhere('u.equipeDom = :equipe')
+                ->orWhere('u.equipeExt = :equipe')
+                ->andWhere('u.type = 1')
+                ->orderBy('u.id')
+                ->setParameter('equipe', $equipe);
         return $db->getQuery()->getResult();
                 
     }

@@ -32,9 +32,9 @@
     </div>
     <div class="row" id="listematches">
     {{ render(controller(
-        'FootstatBundle:EquipesAdmin:Allmatch',
-        { 'equipe': object.id }
-    )) }}   
+        'FootstatBundle:EquipesCRUD:macthesEquipe',
+        { 'equipe': object.id , '_sonata_admin' : 'app.admin.equipes'}
+    )) }}  
     </div>
 
     {% block javascripts %}

@@ -24,8 +24,10 @@ class EquipesController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');
         $equip = $repository->find($equipe);
-        $matchesdom = $em->getRepository('FootstatBundle:Matches')->findByEquipeDom($equipe);
-        $matchesext = $em->getRepository('FootstatBundle:Matches')->findByEquipeExt($equipe);
-        return $this->render('FootstatBundle:Default:Equipes\Presentation.html.twig', array('equip' => $equip, 'matchesdom' => $matchesdom, 'matchesext' => $matchesext));
+        $matchesdom = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeDom' => $equipe, 'type' => 0));
+        $matchesext = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeExt' => $equipe, 'type' => 0));
+        $nextmatchs = $em->getRepository('FootstatBundle:Matches')->byNextmatchs($equipe);
+        return $this->container->get('templating')->renderResponse('FootstatBundle:Default:Equipes\Presentation.html.twig', array('equip' => $equip, 'matchesdom' => $matchesdom, 'matchesext' => $matchesext, 'nextmatchs' => $nextmatchs));
     }
+
 }
