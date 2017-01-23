@@ -35,3 +35,7 @@ SupprimerFavoris:
 AllmatchEquipe:
     path:     /matches/{equipe}
     defaults: { _controller: FootstatBundle:Equipes:Allmatch }
+    
+DataEquipes:
+    path:     /stat/{matchid}
+    defaults: { _controller: FootstatBundle:Matches:Matche }

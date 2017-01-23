@@ -21,11 +21,15 @@ class ChampionnatsCRUDController extends CRUDController {
     
     //request d'url    
     function geturlhtml($url) {
-        $context = stream_context_create(array('http' => array('header' => 'Accept-Charset: utf-8')));
-        $html = file_get_html($url,null,$context);
-//        $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-//        var_dump($html);
-//        die();
+        $opts = array(
+            'http' => array(
+                'method' => "GET",
+                'proxy' => 'tcp://10.158.10.16:8181',
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $html = file_get_html($url, false, $context);
         return $html;
     }
 
@@ -44,13 +48,6 @@ class ChampionnatsCRUDController extends CRUDController {
             $nom= $element->plaintext;
             $nom= html_entity_decode($nom) ;
 
-//            $nom = str_replace('cuisine' ,'ê',$nom);
-//            $nom = str_replace('&eacute;' ,'é',$nom);
-//            $nom = str_replace('cuisine' ,'è',$nom);
-//            $nom = str_replace('cuisine' ,'ç',$nom);
-//            var_dump($nom);
-//            $nom = iconv("ISO-8859-1", "UTF-8", $nom);
-//            var_dump($nom);
             $equipe = new Equipes();
             $lieneq = $element->find('a')[0]->href;
             $lieneq = "http://www.lequipe.fr" . $lieneq;

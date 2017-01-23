@@ -1,0 +1,135 @@
+
+{% extends "::layout/layout.html.twig" %}  
+{% block body %}
+    <div class="col-sm-2">
+        <div class="list-group">
+            {% include '::modulesUsed/navigation.html.twig' %}
+        </div>    
+    </div>
+        
+    <div class="col-sm-10">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <h4>Statistiques de l'équipe</h4>
+                    <table class="table table-condensed sty-table">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Stat</th>
+                                <th>Domicile</th>
+                                <th>Extérieur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Nombre de matches joués</b></td>
+                                <td>{{dataEqdom['Dom_NbMatch']}} </td>
+                                <td>{{dataEqdom['Ext_NbMatch']}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre de matches Gagnés</b></td>
+                                <td>{{dataEqdom['nbVdom']}} </td>
+                                <td>{{dataEqdom['nbVext']}} </td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre de matches Nuls</b></td>
+                                <td>{{dataEqdom['nbNdom']}} </td>
+                                <td>{{dataEqdom['nbNext']}}  </td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre de matches Perdus</b></td>
+                                <td> {{dataEqdom['nbDdom']}} </td>
+                                <td>{{dataEqdom['nbDext']}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <h6>Victoire à domicile</h6>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVdom|round" aria-valuemin="0" aria-valuemax="100" style="width: pctVdom|round%;">
+                            pctVdom|round%
+                        </div>
+                    </div>
+                    <h6>Victoire à l'éxterieur</h6>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVext|round" aria-valuemin="0" aria-valuemax="100" style="width: pctVext|round%;">
+                            pctVext|round%
+                        </div>
+                    </div>
+                    <h6>Nul à domicile</h6>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctNdom|round" aria-valuemin="0" aria-valuemax="100" style="width: pctNdom|round%;">
+                            pctNdom|round
+                        </div>
+                    </div>
+                </div>   
+            </div>    
+                            <div class="col-sm-4" style="margin-left: 200px;">
+
+                <div class="row">
+                    <h4>Statistiques de l'équipe</h4>
+                    <table class="table table-condensed sty-table">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th>Stat</th>
+                                <th>Domicile</th>
+                                <th>Extérieur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Nombre de matches joués</b></td>
+                                <td>{{dataEqext['Dom_NbMatch']}} </td>
+                                <td>{{dataEqext['Ext_NbMatch']}}</td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre de matches Gagnés</b></td>
+                                <td>{{dataEqext['nbVdom']}} </td>
+                                <td>{{dataEqext['nbVext']}} </td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre de matches Nuls</b></td>
+                                <td>{{dataEqext['nbNdom']}} </td>
+                                <td>{{dataEqext['nbNext']}}  </td>
+                            </tr>
+                            <tr>
+                                <td><b>Nombre de matches Perdus</b></td>
+                                <td> {{dataEqext['nbDdom']}} </td>
+                                <td>{{dataEqext['nbDext']}} </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <h6>Victoire à domicile</h6>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVdom|round" aria-valuemin="0" aria-valuemax="100" style="width: pctVdom|round%;">
+                            pctVdom|round%
+                        </div>
+                    </div>
+                    <h6>Victoire à l'éxterieur</h6>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: pctVext|round}}%;">
+                            pctVext|round%
+                        </div>
+                    </div>
+                    <h6>Nul à domicile</h6>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: pctNdom|round}}%;">
+                            pctNdom|round
+                        </div>
+                    </div>
+                </div>   
+            </div>
+
+        </div> 
+    </div> 
+
+{% endblock %}

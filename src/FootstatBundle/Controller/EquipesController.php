@@ -29,5 +29,4 @@ class EquipesController extends Controller {
         $nextmatchs = $em->getRepository('FootstatBundle:Matches')->byNextmatchs($equipe);
         return $this->container->get('templating')->renderResponse('FootstatBundle:Default:Equipes\Presentation.html.twig', array('equip' => $equip, 'matchesdom' => $matchesdom, 'matchesext' => $matchesext, 'nextmatchs' => $nextmatchs));
     }
-
 }

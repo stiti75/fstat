@@ -1,0 +1,93 @@
+
+<div class="thumbnail" id="home">
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+
+            <li role="presentation" class="active"><a href="#domicile" aria-controls="domicile" role="tab" data-toggle="tab">Domicile</a></li>
+            <li role="presentation"><a href="#exterieur" aria-controls="exterieur" role="tab" data-toggle="tab">Extérieur</a></li>
+            <li role="presentation"><a href="#calendrier" aria-controls="calendrier" role="tab" data-toggle="tab">Calendrier</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="domicile">
+                <h4>Matches domicile</h4></br>
+                <table class="table table-condensed sty-table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Date</th>
+                            <th>Domicile</th>
+                            <th>Score</th>
+                            <th>Extérieur</th>
+                        </tr>
+                    </thead>
+                    <tbody>                              
+                        {% for matchedom in matchesdom|reverse %}
+                            <tr class="{% if matchedom.score1 > matchedom.score2 %}bg-success{% elseif matchedom.score1 < matchedom.score2 %}bg-danger{% else %}bg-info{% endif %}">
+                                <td>{{ matchedom.date|date('d-m-Y') }}</td>
+                                <td><a href="{{ path('EquipePresentation', {'equipe': matchedom.equipeDom.id}) }}">{{ matchedom.equipeDom.nom }}</a></td>
+                                <td>{{ matchedom.score1 }} : {{ matchedom.score2}}</td>
+                                <td><a href="{{ path('EquipePresentation', {'equipe': matchedom.equipeExt.id}) }}">{{ matchedom.equipeExt.nom }}</a></td>
+                                {% endfor %}  
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="exterieur">
+                <h4>Matches Extérieur</h4></br>
+                <table class="table table-condensed sty-table">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Date</th>
+                            <th>Domicile</th>
+                            <th>Score</th>
+                            <th>Extérieur</th>
+                        </tr>
+                    </thead>
+                    <tbody>                              
+                        {% for matcheext in matchesext|reverse %}
+                            <tr class="{% if matcheext.score1 < matcheext.score2 %}bg-success{% elseif matcheext.score1 > matcheext.score2 %}bg-danger{% else %}bg-info{% endif %}">
+                                <td>{{ matcheext.date|date('d-m-Y') }}</td>
+                                <td><a href="{{ path('EquipePresentation', {'equipe': matcheext.equipeDom.id}) }}">{{ matcheext.equipeDom.nom }}</a></td>
+                                <td>{{ matcheext.score1 }} : {{ matcheext.score2}}</td>
+                                <td><a href="{{ path('EquipePresentation', {'equipe': matcheext.equipeExt.id}) }}">{{ matcheext.equipeExt.nom }}</a></td>
+                                {% endfor %}  
+                        </tr>
+
+                    </tbody>
+                </table>    
+            </div>
+            <div role="tabpanel" class="tab-pane" id="calendrier">
+                <h4 class="box-title">Prochains Matches</h4>
+                <table class="table table-condensed sty-table" style="background-color: #fff;">
+                    <thead class="thead-inverse">
+                        <tr>
+                            <th>Date</th>
+                            <th>Domicile</th>
+                            <th>Heure</th>
+                            <th>Extérieur</th>
+                        </tr>
+                    </thead>
+                    <tbody> 
+                        {% if nextmatchs>0 %}
+                            {% for matche in nextmatchs %}
+                                <tr>
+                                    <td>{{ matche.date|date('d-m-Y') }}</td>
+                                    <td><a href="{{ path('admin_footstat_equipes_show', {id: matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
+                                    <td>{{ matche.date|date('H:i') }}</td>
+                                    <td><a href="{{ path('admin_footstat_equipes_show', {id: matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
+                                    {% endfor %} 
+
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table> 
+            </div>
+        </div>
+
+    </div>
+</div> 
+

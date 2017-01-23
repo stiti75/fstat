@@ -33,8 +33,8 @@
     </div>
 
     {{ render(controller(
-        'FootstatBundle:EquipesAdmin:Championnat',
-        { 'championnat': object.id }
+        'FootstatBundle:EquipesCRUD:Championnat',
+        { 'championnat': object.id , '_sonata_admin' : 'app.admin.championnat'}
     )) }}   
 
 
