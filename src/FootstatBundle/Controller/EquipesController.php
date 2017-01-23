@@ -14,8 +14,9 @@ class EquipesController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');
         $equipes = $repository->byChampionnat($championnat);
-        $matches = $em->getRepository('FootstatBundle:Matches')->byChampionnat($championnat);
-        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('equipes' => $equipes, 'matches' => $matches));
+        $matcheslast = $em->getRepository('FootstatBundle:Matches')->findBy(array('championnat' => $championnat, 'type' => 0),array('date' => 'DESC'),10);
+        $calmatches = $em->getRepository('FootstatBundle:Matches')->findBy(array('championnat' => $championnat, 'type' => 1),array('date' => 'ASC'),10);
+        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('equipes' => $equipes, 'matches' => $matcheslast, 'calmatches' => $calmatches));
     }
 
     // Affichage détails d'une equipe
