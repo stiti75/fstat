@@ -10,6 +10,7 @@
         {% set pctVext = 100*(dataEqext['nbVext']/dataEqext['Ext_NbMatch']) %}
         {% set pctNext = 100*(dataEqext['nbNext']/dataEqext['Ext_NbMatch']) %}
         {% set pctDext = 100*(dataEqext['nbDext']/dataEqext['Ext_NbMatch']) %}
+
     {% endif %}
 
     <div class="col-sm-2">
@@ -29,7 +30,7 @@
                 </div> 
             </div>
                 <!-- fiche date et heure --> 
-            <div class="col-md-2 col-xs-offset-1 btn btn-success" style="margin-top: 8%;">
+            <div class="col-md-2 col-xs-offset-1 btn btn-success" style="margin-top: 5%;">
                 <h4><span class="glyphicon glyphicon-time"></span> {{match.date|date('d/m/Y')}}</h4>
                 <h4 style="text-align: center;">{{match.date|date('H:i')}}</h4>
             </div>
@@ -103,9 +104,12 @@
                     </table>
                 </div>
                 <div class="row">
+
                     {% include 'FootstatBundle:Default:Matches/EqDomMatches.html.twig' %}
                 </div>
-            </div>    
+                </div>
+
+                    
 
             <!-- debut statistiques equipe visiteurs --> 
             <div class="col-sm-5 col-sm-offset-2">
@@ -168,10 +172,13 @@
                 </div>  
                 <div class="row">
                     {% include 'FootstatBundle:Default:Matches/EqExtMatches.html.twig' %}
-                </div>
-            </div>   
-        </div>
     </div> 
+    </div> 
+    </div>  </div>  
 
 
+
+
+               
+ 
 {% endblock %}
