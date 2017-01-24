@@ -1,17 +1,28 @@
 
 {% extends "::layout/layout.html.twig" %}  
 {% block body %}
+    {% if dataEqdom['Dom_NbMatch']>0 and dataEqext['Ext_NbMatch']>0 %}
+        {% set pctVdom = 100*(dataEqdom['nbVdom']/dataEqdom['Dom_NbMatch']) %}
+        {% set pctVext = 100*(dataEqext['nbVext']/dataEqext['Ext_NbMatch']) %}
+        {% set pctNdom = 100*(dataEqdom['nbNdom']/dataEqdom['Dom_NbMatch']) %}
+        {% set pctNext = 100*(dataEqext['nbNext']/dataEqext['Ext_NbMatch']) %}
+        {% set pctDdom = 100*(dataEqdom['nbDdom']/dataEqdom['Dom_NbMatch']) %}
+        {% set pctDext = 100*(dataEqext['nbDext']/dataEqext['Ext_NbMatch']) %}
+    {% endif %}   
+
     <div class="col-sm-2">
         <div class="list-group">
             {% include '::modulesUsed/navigation.html.twig' %}
         </div>    
     </div>
-        
+
     <div class="col-sm-10">
         <div class="row">
             <div class="col-sm-4">
                 <div class="row">
-                    <h4>Statistiques de l'équipe</h4>
+                    <img src="{{ asset('img/' ~ dataEqdom['logo'].url ~ '.gif') }}" width="100" height="100">
+                    <h4>Statistiques de l'équipe {{dataEqdom['nom']}}</h4>
+                    <p><span class="title1">Classement : </span> {{dataEqdom['classement']}}</p>
                     <table class="table table-condensed sty-table">
                         <thead class="thead-inverse">
                             <tr>
@@ -45,33 +56,35 @@
                     </table>
                 </div>
                 <div class="row">
-                    <h6>Victoire à domicile</h6>
+                    <span class="sty-table">Victoire à domicile</span>
                     <div class="progress">
 
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVdom|round" aria-valuemin="0" aria-valuemax="100" style="width: pctVdom|round%;">
-                            pctVdom|round%
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVdom|round}}%;">
+                            {{pctVdom|round}}%
                         </div>
                     </div>
-                    <h6>Victoire à l'éxterieur</h6>
+                    <span class="sty-table">Nul à domicile</span>
                     <div class="progress">
 
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVext|round" aria-valuemin="0" aria-valuemax="100" style="width: pctVext|round%;">
-                            pctVext|round%
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
+                            {{pctNdom|round}}%
                         </div>
                     </div>
-                    <h6>Nul à domicile</h6>
+                    <span class="sty-table">Défaite à domicile</span>
                     <div class="progress">
 
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctNdom|round" aria-valuemin="0" aria-valuemax="100" style="width: pctNdom|round%;">
-                            pctNdom|round
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
+                            {{pctNdom|round}}%
                         </div>
                     </div>
                 </div>   
             </div>    
-                            <div class="col-sm-4" style="margin-left: 200px;">
+            <div class="col-sm-4" style="margin-left: 200px;">
 
                 <div class="row">
-                    <h4>Statistiques de l'équipe</h4>
+                    <img src="{{ asset('img/' ~ dataEqext['logo'].url ~ '.gif') }}" width="100" height="100">
+                    <h4>Statistiques de l'équipe {{dataEqext['nom']}}</h4>
+                    <p><span class="title1">Classement : </span> {{dataEqext['classement']}}</p>
                     <table class="table table-condensed sty-table">
                         <thead class="thead-inverse">
                             <tr>
@@ -105,27 +118,28 @@
                     </table>
                 </div>
                 <div class="row">
-                    <h6>Victoire à domicile</h6>
+                    <span class="sty-table">Victoire à l'extérieur</span>
                     <div class="progress">
 
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVdom|round" aria-valuemin="0" aria-valuemax="100" style="width: pctVdom|round%;">
-                            pctVdom|round%
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVext|round}}%;">
+                            {{pctVext|round}}%
                         </div>
                     </div>
-                    <h6>Victoire à l'éxterieur</h6>
+                    <span class="sty-table">Nul à l'extérieur</span>
                     <div class="progress">
 
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: pctVext|round}}%;">
-                            pctVext|round%
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNext|round}}%;">
+                            {{pctNext|round}}%
                         </div>
                     </div>
-                    <h6>Nul à domicile</h6>
+                    <span class="sty-table">Défaite à l'extérieur</span>
                     <div class="progress">
 
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: pctNdom|round}}%;">
-                            pctNdom|round
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNext|round}}%;">
+                            {{pctNext|round}}%
                         </div>
                     </div>
+                </div>   
                 </div>   
             </div>
 

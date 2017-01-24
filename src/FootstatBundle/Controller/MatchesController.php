@@ -13,9 +13,7 @@ class MatchesController extends Controller {
         $repository = $em->getRepository('FootstatBundle:Matches');
         $match = $repository->find($matchid);
         $dataEqdom = $this->GetStatEquipe($match->getEquipeDom());
-        var_dump($match->getEquipeDom()->getNom());
         $dataEqext = $this->GetStatEquipe($match->getEquipeExt());
-        var_dump($match->getEquipeExt()->getNom());
 
         
         return $this->render('FootstatBundle:Default:Matches\Presentation.html.twig', array('dataEqext' => $dataEqext, 'dataEqdom' => $dataEqdom));
@@ -27,6 +25,9 @@ class MatchesController extends Controller {
         $equip = $repository->find($equipe);
         $matchesdom = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeDom' => $equipe, 'type' => 0));
         $matchesext = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeExt' => $equipe, 'type' => 0));
+        $DataEq['nom']= $equip->getNom();
+        $DataEq['logo']= $equip->getMedia();
+        $DataEq['classement']= $equip->getClassement();
         $DataEq['Dom_NbMatch']= count($matchesdom);
         $DataEq['Ext_NbMatch']= count($matchesext);
         $DataEq['nbVdom'] = 0;

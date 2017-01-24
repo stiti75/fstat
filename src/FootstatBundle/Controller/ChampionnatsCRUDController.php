@@ -5,6 +5,7 @@ namespace FootstatBundle\Controller;
 use Sonata\AdminBundle\Controller\CRUDController;
 use FootstatBundle\Entity\Equipes;
 use FootstatBundle\Entity\Matches;
+use FootstatBundle\Entity\Media;
 
 include_once 'Classe\simple_html_dom.php';
 
@@ -21,15 +22,8 @@ class ChampionnatsCRUDController extends CRUDController {
     
     //request d'url    
     function geturlhtml($url) {
-        $opts = array(
-            'http' => array(
-                'method' => "GET",
-                'proxy' => 'tcp://10.158.10.16:8181',
-            )
-        );
-
-        $context = stream_context_create($opts);
-        $html = file_get_html($url, false, $context);
+        $context = stream_context_create(array('http' => array('header' => 'Accept-Charset: utf-8')));
+        $html = file_get_html($url,null,$context);
         return $html;
     }
 
@@ -47,6 +41,17 @@ class ChampionnatsCRUDController extends CRUDController {
             
             $nom= $element->plaintext;
             $nom= html_entity_decode($nom) ;
+            $imgurl='http:'.$element->find('img')[0]->src;
+            $imgurl = str_replace(' ','%20',$imgurl);
+            $imgurl = str_replace('-20','-100',$imgurl);
+            file_put_contents('img/'.trim($nom).'.gif', file_get_contents($imgurl));
+            
+            
+            $img =  new Media();
+            $img->setAlt(trim($nom));
+            $img->setUrl(trim($nom).'.gif');
+         
+//            $nom = str_replace('cuisine' ,'ê',$nom);
 
             $equipe = new Equipes();
             $lieneq = $element->find('a')[0]->href;
@@ -58,6 +63,7 @@ class ChampionnatsCRUDController extends CRUDController {
                 $equipe->setNom($nom);
                 $equipe->setClassement($i);
                 $equipe->setChampionnat($championnat);
+                $equipe->setMedia($img);
                 $em->persist($equipe);
                 $em->flush();
             } else {
