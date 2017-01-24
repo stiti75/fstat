@@ -17,14 +17,21 @@ class EquipesCRUDController extends CRUDController {
         $matches = $em->getRepository('FootstatBundle:Matches')->byChampionnat($championnat);
         return $this->render('FootstatBundle:Admin:Championnats\listeEquipes.html.twig', array('equipes' => $equipes, 'matches' => $matches));
     }
-    
-    
-    
+
     function geturlhtml($url) {
-  
-        $html = file_get_html($url);
+        $opts = array(
+            'http' => array(
+                'method' => "GET",
+                'proxy' => 'tcp://10.158.10.16:8181',
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $html = file_get_html($url, false, $context);
         return $html;
     }
+    
+   
 
     Public function allmatchesAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -55,7 +62,7 @@ class EquipesCRUDController extends CRUDController {
             } else {
                 $score1 = explode("-", $resultat->plaintext)[0];
                 $score2 = explode("-", $resultat->plaintext)[1];
-                $datematchs = explode(" ", $datem)[1]. " 00:00" ;
+                $datematchs = explode(" ", $datem)[1] . " 00:00";
                 $datematch = \DateTime::createFromFormat('d/m/Y H:i', $datematchs);
                 $type = 0;
             }

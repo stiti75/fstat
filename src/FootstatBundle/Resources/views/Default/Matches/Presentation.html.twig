@@ -1,28 +1,75 @@
 
 {% extends "::layout/layout.html.twig" %}  
 {% block body %}
-    {% if dataEqdom['Dom_NbMatch']>0 and dataEqext['Ext_NbMatch']>0 %}
+    {% if dataEqdom['Dom_NbMatch']>0 %}
         {% set pctVdom = 100*(dataEqdom['nbVdom']/dataEqdom['Dom_NbMatch']) %}
-        {% set pctVext = 100*(dataEqext['nbVext']/dataEqext['Ext_NbMatch']) %}
         {% set pctNdom = 100*(dataEqdom['nbNdom']/dataEqdom['Dom_NbMatch']) %}
-        {% set pctNext = 100*(dataEqext['nbNext']/dataEqext['Ext_NbMatch']) %}
         {% set pctDdom = 100*(dataEqdom['nbDdom']/dataEqdom['Dom_NbMatch']) %}
+    {% endif %}
+    {% if dataEqext['Ext_NbMatch']>0 %}
+        {% set pctVext = 100*(dataEqext['nbVext']/dataEqext['Ext_NbMatch']) %}
+        {% set pctNext = 100*(dataEqext['nbNext']/dataEqext['Ext_NbMatch']) %}
         {% set pctDext = 100*(dataEqext['nbDext']/dataEqext['Ext_NbMatch']) %}
-    {% endif %}   
+    {% endif %}
 
     <div class="col-sm-2">
         <div class="list-group">
             {% include '::modulesUsed/navigation.html.twig' %}
         </div>    
     </div>
-
     <div class="col-sm-10">
+        <!-- debut affiche du matche -->  
         <div class="row">
-            <div class="col-sm-4">
-                <div class="row">
-                    <img src="{{ asset('img/' ~ dataEqdom['logo'].url ~ '.gif') }}" width="100" height="100">
-                    <h4>Statistiques de l'équipe {{dataEqdom['nom']}}</h4>
+            <!-- fiche equipe domicile -->  
+            <div class="col-md-3 col-xs-offset-1 thumbnail">
+                <img src="{{ asset('img/' ~ dataEqdom['logo'].url ~ '') }}" width="100" height="100">
+                <div class="caption">
+                    <h4>{{dataEqdom['nom']}}</h4>
                     <p><span class="title1">Classement : </span> {{dataEqdom['classement']}}</p>
+                </div> 
+            </div>
+                <!-- fiche date et heure --> 
+            <div class="col-md-2 col-xs-offset-1 btn btn-success" style="margin-top: 8%;">
+                <h4><span class="glyphicon glyphicon-time"></span> {{match.date|date('d/m/Y')}}</h4>
+                <h4 style="text-align: center;">{{match.date|date('H:i')}}</h4>
+            </div>
+                <!-- fiche equipe visiteurs --> 
+            <div class="col-md-3 col-xs-offset-1 thumbnail" >
+                <img src="{{ asset('img/' ~ dataEqext['logo'].url ~ '') }}" width="100" height="100">
+                <div class="caption">
+                    <h4>{{dataEqext['nom']}}</h4>
+                    <p><span class="title1">Classement : </span> {{dataEqext['classement']}}</p>
+                </div> 
+            </div>
+        </div>
+        <!-- debut statistiques deux equipes -->    
+        <div class="row">
+            <!-- debut statistiques equipe domicile --> 
+            <div class="col-sm-5">
+                <div class="row thumbnail">
+                    <span class="sty-table">Victoire à domicile</span>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVdom|round}}%;">
+                            {{pctVdom|round}}%
+                        </div>
+                    </div>
+                    <span class="sty-table">Nul à domicile</span>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
+                            {{pctNdom|round}}%
+                        </div>
+                    </div>
+                    <span class="sty-table">Défaite à domicile</span>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctDdom|round}}%;">
+                            {{pctDdom|round}}%
+                        </div>
+                    </div>
+                </div>
+                <div class="row thumbnail">
+                    <h4>Statistiques de l'équipe {{dataEqdom['nom']}}</h4>
                     <table class="table table-condensed sty-table">
                         <thead class="thead-inverse">
                             <tr>
@@ -56,35 +103,37 @@
                     </table>
                 </div>
                 <div class="row">
-                    <span class="sty-table">Victoire à domicile</span>
-                    <div class="progress">
-
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVdom|round}}%;">
-                            {{pctVdom|round}}%
-                        </div>
-                    </div>
-                    <span class="sty-table">Nul à domicile</span>
-                    <div class="progress">
-
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
-                            {{pctNdom|round}}%
-                        </div>
-                    </div>
-                    <span class="sty-table">Défaite à domicile</span>
-                    <div class="progress">
-
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
-                            {{pctNdom|round}}%
-                        </div>
-                    </div>
-                </div>   
+                    {% include 'FootstatBundle:Default:Matches/EqDomMatches.html.twig' %}
+                </div>
             </div>    
-            <div class="col-sm-4" style="margin-left: 200px;">
 
-                <div class="row">
-                    <img src="{{ asset('img/' ~ dataEqext['logo'].url ~ '.gif') }}" width="100" height="100">
+            <!-- debut statistiques equipe visiteurs --> 
+            <div class="col-sm-5 col-sm-offset-2">
+                <div class="row thumbnail">
+                    <span class="sty-table">Victoire à l'extérieur</span>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVext|round}}%;">
+                            {{pctVext|round}}%
+                        </div>
+                    </div>
+                    <span class="sty-table">Nul à l'extérieur</span>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNext|round}}%;">
+                            {{pctNext|round}}%
+                        </div>
+                    </div>
+                    <span class="sty-table">Défaite à l'extérieur</span>
+                    <div class="progress">
+
+                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctDext|round}}%;">
+                            {{pctDext|round}}%
+                        </div>
+                    </div>
+                </div>
+                <div class="row thumbnail">
                     <h4>Statistiques de l'équipe {{dataEqext['nom']}}</h4>
-                    <p><span class="title1">Classement : </span> {{dataEqext['classement']}}</p>
                     <table class="table table-condensed sty-table">
                         <thead class="thead-inverse">
                             <tr>
@@ -116,34 +165,13 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div>  
                 <div class="row">
-                    <span class="sty-table">Victoire à l'extérieur</span>
-                    <div class="progress">
-
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVext|round}}%;">
-                            {{pctVext|round}}%
-                        </div>
-                    </div>
-                    <span class="sty-table">Nul à l'extérieur</span>
-                    <div class="progress">
-
-                        <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNext|round}}%;">
-                            {{pctNext|round}}%
-                        </div>
-                    </div>
-                    <span class="sty-table">Défaite à l'extérieur</span>
-                    <div class="progress">
-
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNext|round}}%;">
-                            {{pctNext|round}}%
-                        </div>
-                    </div>
-                </div>   
-                </div>   
-            </div>
-
-        </div> 
+                    {% include 'FootstatBundle:Default:Matches/EqExtMatches.html.twig' %}
+                </div>
+            </div>   
+        </div>
     </div> 
+
 
 {% endblock %}

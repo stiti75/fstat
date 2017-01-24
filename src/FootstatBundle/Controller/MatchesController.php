@@ -14,9 +14,8 @@ class MatchesController extends Controller {
         $match = $repository->find($matchid);
         $dataEqdom = $this->GetStatEquipe($match->getEquipeDom());
         $dataEqext = $this->GetStatEquipe($match->getEquipeExt());
-
-        
-        return $this->render('FootstatBundle:Default:Matches\Presentation.html.twig', array('dataEqext' => $dataEqext, 'dataEqdom' => $dataEqdom));
+ 
+        return $this->render('FootstatBundle:Default:Matches\Presentation.html.twig', array('dataEqext' => $dataEqext, 'dataEqdom' => $dataEqdom,'match'=>$match));
     }
     
     public function GetStatEquipe($equipe){
@@ -25,6 +24,7 @@ class MatchesController extends Controller {
         $equip = $repository->find($equipe);
         $matchesdom = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeDom' => $equipe, 'type' => 0));
         $matchesext = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeExt' => $equipe, 'type' => 0));
+        
         $DataEq['nom']= $equip->getNom();
         $DataEq['logo']= $equip->getMedia();
         $DataEq['classement']= $equip->getClassement();
@@ -47,9 +47,9 @@ class MatchesController extends Controller {
                 $DataEq['nbNdom'] = $DataEq['nbNdom']+1;
             }
         }
-        foreach ($matchesdom as $matchedom){
-            $score1 = $matchedom->getScore1();
-            $score2 = $matchedom->getScore2();
+        foreach ($matchesext as $matcheext){
+            $score1 = $matcheext->getScore1();
+            $score2 = $matcheext->getScore2();
             if ($score1>$score2){
                 $DataEq['nbDext'] = $DataEq['nbDext']+1;
             }   else if($score1<$score2){
@@ -58,7 +58,8 @@ class MatchesController extends Controller {
                 $DataEq['nbNext'] = $DataEq['nbNext']+1;
             }
         }
-        
+        $DataEq['listmatchesdom']= $matchesdom;
+        $DataEq['listmatchesext']= $matchesext;
         return $DataEq;
     }
 }
