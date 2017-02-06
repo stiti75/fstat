@@ -3,6 +3,7 @@
 namespace FootstatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use FootstatBundle\Entity\Championnat;
 use FootstatBundle\Entity\Equipes;
 use FootstatBundle\Entity\Matches;
 
@@ -13,10 +14,11 @@ class EquipesController extends Controller {
     public function ChampionnatAction($championnat) {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');
+        $champio = $em->getRepository('FootstatBundle:Championnat')->find($championnat);
         $equipes = $repository->byChampionnat($championnat);
         $matcheslast = $em->getRepository('FootstatBundle:Matches')->findBy(array('championnat' => $championnat, 'type' => 0),array('date' => 'DESC'),10);
         $calmatches = $em->getRepository('FootstatBundle:Matches')->findBy(array('championnat' => $championnat, 'type' => 1),array('date' => 'ASC'),10);
-        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('equipes' => $equipes, 'matches' => $matcheslast, 'calmatches' => $calmatches));
+        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('championnat' => $champio,'equipes' => $equipes, 'matches' => $matcheslast, 'calmatches' => $calmatches));
     }
 
     // Affichage détails d'une equipe

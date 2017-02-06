@@ -1,7 +1,12 @@
 body {
 	padding-bottom: 40px;
     padding-top: 10px;
+    background-color: #abb7be;
 
+}
+.content {  
+    /*padding: 10px;*/
+    background-color: #fff;
 }
 
 .margin {
@@ -14,9 +19,7 @@ body {
 
 .sty-table {
     font-size: 12px;
-    font-weight: bold; 
-    
-    
+    font-weight: bold;    
 }
 
 .title1 {

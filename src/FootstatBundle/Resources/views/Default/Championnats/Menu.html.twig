@@ -1,7 +1,7 @@
 {% if championnats|length != 0 %}
     {% for championnat in championnats %}
         
-      <li><a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}" class="list-group-item">{{ championnat.nom }}</a></li>
+        <li class="sty-table" style="padding: 5px;height: 30px;"><a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}" ><img src="{{ championnat.Media.url }}" width="20" height="20">  {{ championnat.nom }}</a></li>
  
     {% endfor %}
 {% endif %}

@@ -15,7 +15,7 @@
                                         {{object.nom}}
                                     </h4>
                                 </div>
-                                    
+
                                 <div class="col-md-2">
                                     <a href="#" id="addequipes" idcham="{{object.id}}" class="btn btn-primary">ajouter équipes</a>
                                 </div>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="box-body table-responsive no-padding">
                             <img src="{{object.media.url}}" width="100" height="100" style="margin-left:10px;margin-bottom:10px;">
-                            
+
                         </div>
                     </div>
                 </div>
@@ -44,17 +44,13 @@
             $("a#addequipes").click(function () {
                 var this$ = $(this);
                 var idcham = this$.attr("idcham");
-
-
                 $.ajax({
                     url: "{{ admin.generateUrl('getallequipes',{'id':object.id}) }}",
                     type: 'get',
                     beforeSend: function () {
-                        $('#equipes').html('<div class="loading"></div>');
-                    },
-                    error: function (xhr, status, error) {
+                        $('#equipes').html('<div class="col-md-2 col-md-offset-5" style="text-align:center;"><h6>Chargement des équipes...</h6><div class="loading"></div></div>');
+
                         
-                        console.log(xhr.responseText);
                     },
                     success: function (data) {
                         $('#equipes').html(data);

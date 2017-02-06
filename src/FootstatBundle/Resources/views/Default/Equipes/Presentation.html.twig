@@ -35,7 +35,7 @@
    
         {% if matchesdom|length>0 and matchesext|length>0 %}
         <div class="col-sm-6">
-            <div class="row">
+            <div class="row thumbnail">
                 <h4>Statistiques de l'équipe</h4>
                 <table class="table table-condensed sty-table">
                     <thead class="thead-inverse">
@@ -69,26 +69,47 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row">
-                <h6>Victoire à domicile</h6>
+            <div class="row thumbnail">
+                <b>Victoire à domicile</b>
                 <div class="progress">
                     
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVdom|round}}%;">
                         {{pctVdom|round}}%
                     </div>
                 </div>
-                <h6>Victoire à l'éxterieur</h6>
+                <b>Victoire à l'éxterieur</b>
                 <div class="progress">
                     
                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctVext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctVext|round}}%;">
                         {{pctVext|round}}%
                     </div>
                 </div>
-                <h6>Nul à domicile</h6>
+                <b>Nul à domicile</b>
                 <div class="progress">
                     
-                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNdom|round}}%;">
                         {{pctNdom|round}}%
+                    </div>
+                </div>
+                <b>Nul à l'éxterieur</b>
+                <div class="progress">
+                    
+                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{pctNext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctNext|round}}%;">
+                        {{pctNext|round}}%
+                    </div>
+                </div>
+                <b>Défaite à domicile</b>
+                <div class="progress">
+                    
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDdom|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctDdom|round}}%;">
+                        {{pctDdom|round}}%
+                    </div>
+                </div>
+                <b>Défaite à l'éxterieur</b>
+                <div class="progress">
+                    
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{pctDext|round}}" aria-valuemin="0" aria-valuemax="100" style="width: {{pctDext|round}}%;">
+                        {{pctDext|round}}%
                     </div>
                 </div>
             </div>   

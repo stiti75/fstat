@@ -49,7 +49,7 @@
                     url: "{{ admin.generateUrl('allmatches',{'id':object.id}) }}",
                     type: 'get',
                     beforeSend: function () {
-                        $('#listematches').html('<div class="loading"></div>');
+                        $('#listematches').html('<div class="col-md-2 col-md-offset-5" style="text-align:center;"><h6>Chargement des matches...</h6><div class="loading"></div></div>');
                     },
                     error: function (xhr, status, error) {
                         
