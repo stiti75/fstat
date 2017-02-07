@@ -16,30 +16,30 @@
 </head>
 <body>
     <header class="row">
-            <div class="col-sm-12">
-                <nav class="navbar navbar-default navbar-fixed-top">
-                    <div class="container"> 
-                        <div class="col-sm-9">
-                            <a class="navbar-brand" href="#">Foot Statistique</a>
+        <div class="col-sm-12">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container"> 
+                    <div class="col-sm-9">
+                        <a class="navbar-brand" href="#">Foot Statistique</a>
 
-                            <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
-                                <li><a href="{{ path('Favoris') }}">Favoris</a></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-3">
-                            <a href="{{ path('fos_user_security_login') }}" role="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-lock"></span> Connexion</a>
-                            <a href="{{ path('fos_user_registration_register') }}" role="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> S'inscrire</a>
-                        </div>
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+                            <li><a href="{{ path('Favoris') }}">Favoris</a></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ul>
                     </div>
-                </nav>
-            </div>
-        </header>
-                        <div class="container content" style="margin-top: 20px;">
-        
+                    <div class="col-sm-3">
+                        <a href="{{ path('fos_user_security_login') }}" role="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-lock"></span> Connexion</a>
+                        <a href="{{ path('fos_user_registration_register') }}" role="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> S'inscrire</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <div class="container content" style="margin-top: 20px;">
+
 
         {% if app.session.flashBag.has('success') %}
             <div class="alert alert-success">
@@ -51,7 +51,7 @@
 
         <div class="row" style="padding:15px;margin-top: 20px;">
         {% block body %}{% endblock %}
-        </div>
+    </div>
 
 
 
