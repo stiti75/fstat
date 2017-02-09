@@ -42,6 +42,25 @@ class Equipes
      * @ORM\Column(name="Classement", type="integer")
      */
     private $classement;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="jeu", type="integer")
+     */
+    private $jeu;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="pts", type="integer")
+     */
+    private $pts;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="diff", type="string", length=255)
+     */
+    private $diff;
      
     /**
      * @ORM\OneToOne(targetEntity="FootstatBundle\Entity\Media", cascade={"persist"})
@@ -133,6 +152,76 @@ class Equipes
     {
         return $this->classement;
     }
+    
+    /**
+     * Set pts
+     *
+     * @param integer $pts
+     * @return Equipes
+     */
+    public function setPts($pts)
+    {
+        $this->pts = $pts;
+
+        return $this;
+    }
+
+    /**
+     * Get pts
+     *
+     * @return integer 
+     */
+    public function getPts()
+    {
+        return $this->pts;
+    }
+    
+    /**
+     * Set jeu
+     *
+     * @param integer $jeu
+     * @return Equipes
+     */
+    public function setJeu($jeu)
+    {
+        $this->jeu = $jeu;
+
+        return $this;
+    }
+
+    /**
+     * Get jeu
+     *
+     * @return integer 
+     */
+    public function getJeu()
+    {
+        return $this->jeu;
+    }
+    
+    /**
+     * Set diff
+     *
+     * @param string $diff
+     * @return Equipes
+     */
+    public function setDiff($diff)
+    {
+        $this->diff = $diff;
+
+        return $this;
+    }
+
+    /**
+     * Get diff
+     *
+     * @return string 
+     */
+    public function getDiff()
+    {
+        return $this->diff;
+    }
+    
     
     public function setMedia(Media $media = null) {
         $this->media = $media;

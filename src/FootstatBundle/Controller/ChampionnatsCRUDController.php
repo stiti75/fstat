@@ -22,15 +22,31 @@ class ChampionnatsCRUDController extends CRUDController {
 
     //request d'url    
     function geturlhtml($url) {
-        
-        $html = file_get_html($url);
+        $opts = array(
+            'http' => array(
+                'method' => "GET",
+                'proxy' => 'tcp://10.158.10.16:8181',
+            )
+        );
+        $context = stream_context_create($opts);
+        $html = file_get_html($url, false, $context);
         return $html;
     }
-     function getcontents($url) {
-        
-        $html = file_get_contents($url);
+
+    function getcontents($url) {
+        $opts = array(
+            'http' => array(
+                'method' => "GET",
+                'proxy' => 'tcp://10.158.10.16:8181',
+            )
+        );
+
+        $context = stream_context_create($opts);
+        $html = file_get_contents($url, false, $context);
+
         return $html;
     }
+
     // recuperation des equipes championnat par URL
     public function getallequipesAction($id) {
         $em = $this->getDoctrine()->getManager();
