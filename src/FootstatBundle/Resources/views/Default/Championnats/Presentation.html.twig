@@ -68,8 +68,9 @@
                             <th></th>
                             <th>Equipes</th>
                             <th>Classement</th>
-                            <th>P</th>
-                            <th>MJ</th>
+                            <th>Jeu</th>
+                            <th>Diff</th>
+                            <th>Pts</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -85,8 +86,9 @@
                                        <img src="{{ asset('img/' ~ equipe.Media.url ~ '') }}" width="20" height="20"> <a href="{{ path('EquipePresentation', {'equipe': equipe.id}) }}">{{ equipe.nom }}</a>  
                                     </td>
                                     <td>{{ equipe.classement }}</td>
-                                    <td>..</td>
-                                    <td>..</td> 
+                                    <td>{{ equipe.jeu }}</td>
+                                    <td>{{ equipe.diff }}</td>
+                                    <td>{{ equipe.pts }}</td>
                                 </tr>
                             {% endfor %}
                     </tbody>

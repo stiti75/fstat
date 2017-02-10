@@ -14,11 +14,11 @@
 
             {% for championnat in championnats %}
                 <div class="col-sm-2">
-                    <div class="thumbnail">
-                        <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><img src="{{ championnat.Media.url }}" alt="{{ championnat.Media.alt }}" width="150" height="100"></a>
+                    <div class="thumbnails">
+                        <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><img src="{{ championnat.Media.url }}" alt="{{ championnat.Media.alt }}" width="150" height="150" /></a>
                         <div class="caption">
-                            <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><h3>{{ championnat.nom }}</h3></a>
-                            <p><a href="#" class="btn btn-primary" role="button">Button</a></p>
+                            <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><h5>{{ championnat.nom }}</h5></a>
+                            <p><a href="#" class="btn btn-primary" role="button">Classement</a></p>
                         </div>
                     </div>
                 </div>

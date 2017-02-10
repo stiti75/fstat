@@ -52,20 +52,24 @@ class ChampionnatsCRUDController extends CRUDController {
         $em = $this->getDoctrine()->getManager();
         $championnat = $em->getRepository('FootstatBundle:Championnat')->find($id);
         $html1 = $this->geturlhtml($championnat->getUrl());
-
-        $html1 = $html1->find('span[class=team-label]');
+        $html1 = $html1->find('tr[class=js-tr-hover]');
+//        $html1 = $html1->find('span[class=team-label]');
 
 
         $i = 1;
         foreach ($html1 as $element) {
 
-            $nom = $element->plaintext;
+            $nom = $element->find('span[class=team-label]')[0]->plaintext;
+            
             $nom = html_entity_decode($nom);
             $imgurl = 'http:' . $element->find('img')[0]->src;
             $imgurl = str_replace(' ', '%20', $imgurl);
             $imgurl = str_replace('-20', '-100', $imgurl);
-            file_put_contents('img/' . trim($nom) . '.gif', $this->getcontents($imgurl));
-
+            
+//            file_put_contents('img/' . trim($nom) . '.gif', $this->getcontents($imgurl));
+            $pts = $element->find('td[class=points]')[0]->plaintext;
+            $jeu = $element->find('td[class=stat]')[0]->plaintext;
+            $diff = $element->find('td[class=stat]')[6]->plaintext;
 
             $img = new Media();
             $img->setAlt(trim($nom));
@@ -76,18 +80,25 @@ class ChampionnatsCRUDController extends CRUDController {
             $equipe = new Equipes();
             $lieneq = $element->find('a')[0]->href;
             $lieneq = "http://www.lequipe.fr" . $lieneq;
+            
 
             $lequipe = $em->getRepository('FootstatBundle:Equipes')->findByNom($element->plaintext);
             if (!$lequipe) {
                 $equipe->setLien($lieneq);
                 $equipe->setNom($nom);
                 $equipe->setClassement($i);
+                $equipe->setJeu($jeu);
+                $equipe->setPts($pts);
+                $equipe->setDiff($diff);
                 $equipe->setChampionnat($championnat);
                 $equipe->setMedia($img);
                 $em->persist($equipe);
                 $em->flush();
             } else {
                 $lequipe[0]->setClassement($i);
+                $lequipe[0]->setJeu($jeu);
+                $lequipe[0]->setPts($pts);
+                $lequipe[0]->setDiff($diff);
                 $em->persist($lequipe[0]);
                 $em->flush();
             }

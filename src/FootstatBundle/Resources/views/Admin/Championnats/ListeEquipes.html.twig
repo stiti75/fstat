@@ -7,13 +7,19 @@
                             <tr>
                                 <th>Equipe</th>
                                 <th>Classement</th>
+                                <th>Jeu</th>
+                                <th>Diff</th>
+                                <th>Pts</th>
                             </tr>
                         </thead>
                         <tbody> 
                             {% for equipe in equipes %}
                                 <tr>
                                     <td><a href="{{ path('admin_footstat_equipes_show', {id: equipe.id})  }}">{{ equipe.nom }}</a></td>
-                                    <td>{{ equipe.classement }}</td>  
+                                    <td>{{ equipe.classement }}</td>
+                                    <td>{{ equipe.jeu }}</td>
+                                    <td>{{ equipe.diff }}</td>
+                                    <td>{{ equipe.pts }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>
