@@ -18,6 +18,23 @@ class MatchesController extends Controller {
         return $this->render('FootstatBundle:Default:Matches\Presentation.html.twig', array('dataEqext' => $dataEqext, 'dataEqdom' => $dataEqdom,'match'=>$match));
     }
     
+    public function TodayMatchesAction() {
+        // ici on affiche le match
+        $em = $this->getDoctrine()->getManager();
+//        $now = new \DateTime();
+//        $today = $now->format('Y-m-d');    // MySQL datetime format
+//
+//        
+////        $now = date("Y-m-d H:i:s");
+//        $today = \DateTime::createFromFormat('Y-m-d', $today);
+//        var_dump($today);
+        $repository = $em->getRepository('FootstatBundle:Matches');
+        $match = $repository->findBy(array('type' => 1),array('date' => 'ASC'),20);
+//        $daymatch = $repository->findBy(array('date' => $today,'type' => 1),array('date' => 'ASC'),20);
+
+ 
+        return $this->render('FootstatBundle:Default:Home\Presentation.html.twig', array('match'=>$match));
+    }
     public function GetStatEquipe($equipe){
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');

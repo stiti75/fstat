@@ -22,6 +22,17 @@ class MatchesRepository extends EntityRepository
                 ->setMaxResults(10);
         return $db->getQuery()->getResult();                
     }
+    
+    public function byDate($date){
+        $db = $this->createQueryBuilder('u')
+                ->select('u')
+                ->where('u.date = :date')
+                
+                ->setParameter('date', $date." %");
+        return $db->getQuery()->getResult();
+                
+    }
+   
     public function byNextmatchs($equipe){
         $db = $this->createQueryBuilder('u')
                 ->select('u')

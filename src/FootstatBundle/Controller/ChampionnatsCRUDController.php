@@ -66,7 +66,7 @@ class ChampionnatsCRUDController extends CRUDController {
             $imgurl = str_replace(' ', '%20', $imgurl);
             $imgurl = str_replace('-20', '-100', $imgurl);
             
-//            file_put_contents('img/' . trim($nom) . '.gif', $this->getcontents($imgurl));
+            file_put_contents('img/' . trim($nom) . '.gif', $this->getcontents($imgurl));
             $pts = $element->find('td[class=points]')[0]->plaintext;
             $jeu = $element->find('td[class=stat]')[0]->plaintext;
             $diff = $element->find('td[class=stat]')[6]->plaintext;
@@ -82,7 +82,7 @@ class ChampionnatsCRUDController extends CRUDController {
             $lieneq = "http://www.lequipe.fr" . $lieneq;
             
 
-            $lequipe = $em->getRepository('FootstatBundle:Equipes')->findByNom($element->plaintext);
+            $lequipe = $em->getRepository('FootstatBundle:Equipes')->findByNom($nom);
             if (!$lequipe) {
                 $equipe->setLien($lieneq);
                 $equipe->setNom($nom);

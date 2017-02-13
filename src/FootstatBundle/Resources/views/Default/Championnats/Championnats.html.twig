@@ -1,9 +1,9 @@
 {% extends "::layout/layout.html.twig" %}  
 {% block body %}
     <div class="col-sm-2">
-        <div class="list-group">
+
             {% include '::modulesUsed/navigation.html.twig' %}
-        </div>    
+  
     </div>
 
 
@@ -14,18 +14,20 @@
 
             {% for championnat in championnats %}
                 <div class="col-sm-2">
-                    <div class="thumbnails">
-                        <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><img src="{{ championnat.Media.url }}" alt="{{ championnat.Media.alt }}" width="150" height="150" /></a>
+                    <div class="well" style="height: 200px;">
+                        <div class="img-thumbnail">
+                        <img src="{{ championnat.Media.url }}" alt="{{ championnat.Media.alt }}"  width="75" height="75" />
+                        </div>
                         <div class="caption">
-                            <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><h5>{{ championnat.nom }}</h5></a>
-                            <p><a href="#" class="btn btn-primary" role="button">Classement</a></p>
+                            <a href="{{ path('ChampionnatEquipes', {'championnat': championnat.id}) }}"><h6>{{ championnat.nom }}</h6></a>
+                            <p><a href="#" class="btn btn-default sty-table" role="button">+ d'infos</a></p>
                         </div>
                     </div>
                 </div>
             {% endfor %}
 
         {% else %}
-            Aucun championnat
+            Aucune championnat
         {% endif %}
     </div>
 

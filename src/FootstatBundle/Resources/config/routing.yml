@@ -1,7 +1,7 @@
 
 Acceuil:
     path:     /
-    defaults: { _controller: FootstatBundle:Championnats:Championnats }
+    defaults: { _controller: FootstatBundle:Matches:TodayMatches }
     
 Championnats:
     path:     /championnats
