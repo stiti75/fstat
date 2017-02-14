@@ -18,6 +18,7 @@
 
                                 <div class="col-md-2">
                                     <a href="#" id="addequipes" idcham="{{object.id}}" class="btn btn-primary">ajouter équipes</a>
+                                    <a href="#" id="addmatches" idcham="{{object.id}}" class="btn btn-info">ajouter équipes</a>
                                 </div>
                             </div>
                         </div>
@@ -58,8 +59,27 @@
 
                 });
             });
+            $("a#addmatches").click(function () {
+                var this$ = $(this);
+                var idcham = this$.attr("idcham");
+                $.ajax({
+                    url: "{{ admin.generateUrl('allequipesmatches',{'id':object.id}) }}",
+                    type: 'get',
+                    beforeSend: function () {
+                        $('#equipes').html('<div class="col-md-2 col-md-offset-5" style="text-align:center;"><h6>Chargement des équipes...</h6><div class="loading"></div></div>');
+
+                        
+                    },
+                    success: function (data) {
+                        $('#equipes').html(data);
+                    }
+
+                });
+            });
         </script>
     {% endblock %}
+    
+    
 
 
 

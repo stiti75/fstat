@@ -106,5 +106,88 @@ class ChampionnatsCRUDController extends CRUDController {
         }
         return $this->ChampionnatAction($championnat);
     }
+    
+    
+    public function allequipesmatchesAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $repository = $em->getRepository('FootstatBundle:Equipes');
+        $equipes = $repository->byChampionnat($id);
+        
+        foreach ($equipes as $equipe) {
+            
+            $this->allmatches($equipe->getId());
+            
+        }
+        return $this->ChampionnatAction($id);
+    }
+    
+    Public function allmatches($id) {
+        $em = $this->getDoctrine()->getManager();
+        $equipe = $em->getRepository('FootstatBundle:Equipes')->find($id);
 
+        $html2 = $this->geturlhtml($equipe->getLien());
+//    $html2 = $html2->find('div[id=LASTMATCHS]')[0];
+        foreach ($html2->find('tr[class=fc_match fc_code_CH]') as $element) {
+            $match = new Matches();
+            $datem = $element->find('td[class=fc_m_date]')[0]->plaintext;
+
+
+            $equ1 = $element->find('td[class=fc_m_eq1]')[0];
+            $equ1 = $equ1->plaintext;
+            $equ1 = html_entity_decode($equ1);
+            $equ2 = $element->find('td[class=fc_m_eq2]')[0];
+            $equ2 = $equ2->plaintext;
+            $equ2 = html_entity_decode($equ2);
+            $resultat = $element->find('td')[3];
+
+            if (trim($resultat->getAttribute("class")) == "fc_m_score fc_m_heure") {
+                $type = 1;
+                $score1 = "0";
+                $score2 = "0";
+                $datem = explode(" ", $datem)[1];
+                $datematchs = $datem . " " . trim($resultat->plaintext);
+                $datematch = \DateTime::createFromFormat('d/m/Y H:i', $datematchs);
+            } else {
+                $score1 = explode("-", $resultat->plaintext)[0];
+                $score2 = explode("-", $resultat->plaintext)[1];
+                $datematchs = explode(" ", $datem)[1] . " 00:00";
+                $datematch = \DateTime::createFromFormat('d/m/Y H:i', $datematchs);
+                $type = 0;
+            }
+
+            if (trim($equipe->getNom()) == trim($equ1)) {
+                $check = $em->getRepository('FootstatBundle:Matches')->findOneBy(array('date' => $datematch, 'equipeDom' => $equipe->getId()));
+                if (!$check) {
+                    $match->setDate($datematch);
+                    $match->setEquipeDom($equipe);
+                    $equipe2 = $em->getRepository('FootstatBundle:Equipes')->findByNom($equ2);
+                    $match->setEquipeExt($equipe2[0]);
+                    $match->setChampionnat($equipe->getChampionnat());
+                    $match->setScore1((int) $score1);
+                    $match->setScore2((int) $score2);
+                    $match->setType($type);
+                    $em->persist($match);
+                    $em->flush();
+                }
+            } else {
+                $check = $em->getRepository('FootstatBundle:Matches')->findOneBy(array('date' => $datematch, 'equipeExt' => $equipe->getId()));
+                if (!$check) {
+                    $match->setDate($datematch);
+                    $equipe2 = $em->getRepository('FootstatBundle:Equipes')->findByNom($equ1);
+                    $match->setEquipeDom($equipe2[0]);
+                    $match->setEquipeExt($equipe);
+                    $match->setChampionnat($equipe->getChampionnat());
+                    $match->setScore1((int) $score1);
+                    $match->setScore2((int) $score2);
+                    $match->setType($type);
+                    $em->persist($match);
+                    $em->flush();
+                }
+            }
+        }
+        
+
+    }
+    
+    
 }

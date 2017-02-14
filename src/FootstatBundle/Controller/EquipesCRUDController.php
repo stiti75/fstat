@@ -17,6 +17,15 @@ class EquipesCRUDController extends CRUDController {
         $matches = $em->getRepository('FootstatBundle:Matches')->byChampionnat($championnat);
         return $this->render('FootstatBundle:Admin:Championnats\listeEquipes.html.twig', array('equipes' => $equipes, 'matches' => $matches));
     }
+    
+//    public function allequipesmatchesAction($championnat){
+//        $em = $this->getDoctrine()->getManager();
+//        $repository = $em->getRepository('FootstatBundle:Equipes');
+//        $equipes = $repository->byChampionnat($championnat);
+//        foreach ($equipe as $equipes) {
+//            $this->allmatchesAction($equipe->getId());
+//        }
+//    }
 
     function geturlhtml($url) {
         $opts = array(
