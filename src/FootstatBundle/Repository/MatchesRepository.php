@@ -34,13 +34,31 @@ class MatchesRepository extends EntityRepository
     }
    
     public function byNextmatchs($equipe){
+        $now = date('Y-m-d').' 00:00:00';
         $db = $this->createQueryBuilder('u')
                 ->select('u')
                 ->andWhere('u.equipeDom = :equipe')
                 ->orWhere('u.equipeExt = :equipe')
+                ->andWhere('u.date >= :now' )
                 ->andWhere('u.type = 1')
-                ->orderBy('u.id')
-                ->setParameter('equipe', $equipe);
+                ->orderBy('u.date')
+                ->setParameter('equipe', $equipe)
+                ->setParameter('now', $now);
+        return $db->getQuery()->getResult();
+                
+    }
+    
+     public function byNextmChamp($championnat){
+        $now = date('Y-m-d').' 00:00:00';
+        $db = $this->createQueryBuilder('u')
+                ->select('u')
+                ->andWhere('u.championnat = :championnat')
+                ->andWhere('u.date >= :now' )
+                ->andWhere('u.type = 1')
+                ->orderBy('u.date')
+                ->setParameter('championnat', $championnat)
+                ->setParameter('now', $now)
+                ->setMaxResults( 15 );
         return $db->getQuery()->getResult();
                 
     }

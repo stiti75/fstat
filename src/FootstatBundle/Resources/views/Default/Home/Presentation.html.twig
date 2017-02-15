@@ -1,13 +1,13 @@
 {% extends "::layout/layout.html.twig" %}  
 {% block body %}
     <div class="col-sm-2">
-            {% include '::modulesUsed/navigation.html.twig' %}
+        {% include '::modulesUsed/navigation.html.twig' %}
     </div>
     <div class="col-sm-10 well">
         <div class="row">
             <div class="col-sm-6">
 
-  
+
                 <h5 style="color: #fff;background-color: #113d48;padding: 10px;">Matches d'aujourd'hui </h5>
                 <table class="table table-condensed sty-table thumbnail">
                     <thead class="thead-inverse">
@@ -22,24 +22,24 @@
                     <tbody> 
                         {% if match>0 %}
                             {% for matche in match %}
-                               {% if matche.date|date('d-m-Y') == "now"|date("d-m-Y") %} 
+                                {% if matche.date|date('d-m-Y') == "now"|date("d-m-Y") %} 
 
-                                <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
-                                    <td>{{ matche.date|date('d-m-Y') }}</td>
-                                    <td><img src="{{ matche.championnat.Media.url }}" width="20" height="20"> </td>
-                                    <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
-                                    <td>{{ matche.date|date('H:i') }}</td>
-                                    <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
-                                </tr>
+                                    <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
+                                        <td>{{ matche.date|date('d-m-Y') }}</td>
+                                        <td><img src="{{ matche.championnat.Media.url }}" width="20" height="20"> </td>
+                                        <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
+                                        <td>{{ matche.date|date('H:i') }}</td>
+                                        <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
+                                    </tr>
                                 {% endif %}
                             {% endfor %}       
                         {% endif %}
                     </tbody>
                 </table>    
             </div>
-          <div class="col-sm-6">
+            <div class="col-sm-6">
 
-  
+
                 <h5 style="color: #fff;background-color: #DF1318;padding: 10px;">Prochains Matches </h5>
                 <table class="table table-condensed sty-table thumbnail">
                     <thead class="thead-inverse">
@@ -54,15 +54,15 @@
                     <tbody> 
                         {% if match>0 %}
                             {% for matche in match %}
-
-                                <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
-                                    <td>{{ matche.date|date('d-m-Y') }}</td>
-                                    <td><img src="{{ matche.championnat.Media.url }}" width="20" height="20"> </td>
-                                    <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
-                                    <td>{{ matche.date|date('H:i') }}</td>
-                                    <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
-                                </tr>
-
+                                {% if matche.date|date('d-m-Y') >= "now"|date("d-m-Y") %} 
+                                    <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
+                                        <td>{{ matche.date|date('d-m-Y') }}</td>
+                                        <td><img src="{{ matche.championnat.Media.url }}" width="20" height="20"> </td>
+                                        <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
+                                        <td>{{ matche.date|date('H:i') }}</td>
+                                        <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
+                                    </tr>
+                                {% endif %} 
                             {% endfor %}       
                         {% endif %}
                     </tbody>
