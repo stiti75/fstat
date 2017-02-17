@@ -39,3 +39,14 @@ AllmatchEquipe:
 DataEquipes:
     path:     /stat/{matchid}
     defaults: { _controller: FootstatBundle:Matches:Matche }
+
+AjouterMesEquipes:
+    path:     /addequipe/{id}
+    defaults: { _controller: UtilisateursBundle:Utilisateurs:Addequipe }
+SuprrimerMesEquipes:
+    path:     /removeequipe/{id}
+    defaults: { _controller: UtilisateursBundle:Utilisateurs:Removeequipe }
+    
+MesEquipesFavoris:
+    path:     /me/equipes
+    defaults: { _controller: UtilisateursBundle:Utilisateurs:Favoris }

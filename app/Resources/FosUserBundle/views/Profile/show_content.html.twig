@@ -3,5 +3,9 @@
 <div class="fos_user_user_show">
     <p>{{ 'profile.show.username'|trans }}: {{ user.username }}</p>
     <p>{{ 'profile.show.email'|trans }}: {{ user.email }}</p>
-    <p>{{ user.equipes }}</p>
+    {% if user.equipes| length>0 %}
+    {% for equipe in user.equipes %}
+    <p>{{ equipe.nom }}</p>
+    {% endfor %}
+    {% endif %}
 </div>

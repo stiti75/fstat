@@ -60,7 +60,7 @@
             </div>
             <div class="col-sm-5">
                 {% if equipes|length != 0 %}
-                    {% set Favoris = app.session.get('favoris') %}
+                   
                     <h5 class="bg-primary" style="padding: 10px;">Classement</h5>
                 <table class="table table-condensed sty-table">
                     <thead class="thead-inverse">
@@ -76,7 +76,7 @@
                     <tbody>
                             {% for equipe in equipes %}
                                 <tr>
-                                    <td>{% if equipe.id|number_format not in Favoris %}
+                                    <td>{% if equipe not in Favoris %}
 
                                     <a href="#" class="fav" ideq="{{ equipe.id }}" ><span class="glyphicon glyphicon-star-empty"></span></a> 
                                     {% else %}

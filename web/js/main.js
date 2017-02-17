@@ -10,7 +10,7 @@ function addFav() {
     var this$ = $(this);
     var ideq = this$.attr("ideq");
     $.ajax({
-        url: "http://localhost/footstat/web/app_dev.php/favorisajouter/" + ideq, type: 'get',
+        url: "http://localhost/footstat/web/app_dev.php/addequipe/" + ideq, type: 'get',
         beforeSend: function () {
 //            this$.html('<div class="loading"></div>')
             this$.html('<span class="glyphicon glyphicon-star"></span>')
@@ -29,7 +29,7 @@ function removeFav() {
     var this$ = $(this);
     var ideq = this$.attr("ideq");
     $.ajax({
-        url: "http://localhost/footstat/web/app_dev.php/supprimer-favoris/" + ideq, type: 'get',
+        url: "http://localhost/footstat/web/app_dev.php/removeequipe/" + ideq, type: 'get',
         beforeSend: function () {
             this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
             this$.unbind('click');
@@ -52,7 +52,7 @@ function supprfav() {
     var this$ = $(this);
     var ideq = this$.attr("ideq");
     $.ajax({
-        url: "http://localhost/footstat/web/app_dev.php/supprimer-favoris/" + ideq, type: 'get',
+        url: "http://localhost/footstat/web/app_dev.php/removeequipe/" + ideq, type: 'get',
         beforeSend: function () {
             this$.html('<div class="loading"></div>')
             this$.closest("li").remove();
