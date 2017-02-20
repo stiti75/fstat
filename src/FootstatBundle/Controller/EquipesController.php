@@ -4,6 +4,7 @@ namespace FootstatBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FootstatBundle\Entity\Championnat;
+use FOS\UserBundle\Model\UserInterface;
 use FootstatBundle\Entity\Equipes;
 use FootstatBundle\Entity\Matches;
 
@@ -13,7 +14,12 @@ class EquipesController extends Controller {
 
     public function ChampionnatAction($championnat) {
         $user = $this->getUser();
-        $favoris = $user->getEquipes();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $favoris = [];
+        } else {
+            $favoris = $user->getEquipes();
+        }
+        
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');
         $champio = $em->getRepository('FootstatBundle:Championnat')->find($championnat);

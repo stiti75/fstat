@@ -12,7 +12,10 @@ class UtilisateursController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('UtilisateursBundle:Default:index.html.twig');
+        $user = $this->getUser();
+        return $this->render('UtilisateursBundle:Default:index.html.twig',array(
+            'user' => $user
+        ));
     }
     public function AddequipeAction($id)
     {

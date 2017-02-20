@@ -1,4 +1,4 @@
-
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 
 {% if user.equipes| length>0 %}
     {% for equipe in user.equipes %}
@@ -6,4 +6,7 @@
         <li style="padding: 5px;height: 30px;"><img src="{{ asset('img/' ~ equipe.Media.url ~ '') }}" width="20" height="20"> <a href="{{ path('EquipePresentation', {'equipe': equipe.id}) }}">{{ equipe.nom }}</a></li>
  
     {% endfor %}
+{% endif %}
+{% else %}
+    <li style="padding: 5px;height: 30px;"> Connectez vous !!</li>
 {% endif %}

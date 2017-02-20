@@ -1,14 +1,14 @@
 {% extends "::layout/layout.html.twig" %}  
 {% block body %}
     <div class="col-sm-2">
-            {% include '::modulesUsed/navigation.html.twig' %}
+        {% include '::modulesUsed/navigation.html.twig' %}
     </div>
     <div class="col-sm-10 well">
         <div class="row">
             <div class="col-sm-6">
                 <img src="{{ championnat.media.url }}" width="100" height="100">
                 <h4>{{ championnat.nom }}</h4>
-                
+
                 <h5 style="color: #fff;background-color: #c4272d;padding: 10px;">Derniers Matches</h5>
                 <table class="table table-condensed sty-table thumbnail">
                     <thead class="thead-inverse">
@@ -27,7 +27,7 @@
                                     <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
                                     <td>{{ matche.score1 }} : {{ matche.score2}}</td>
                                     <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
-                            </tr>
+                                </tr>
                             {% endfor %}
                         {% endif %}
                     </tbody>
@@ -60,49 +60,123 @@
             </div>
             <div class="col-sm-5">
                 {% if equipes|length != 0 %}
-                   
+
                     <h5 class="bg-primary" style="padding: 10px;">Classement</h5>
-                <table class="table table-condensed sty-table">
-                    <thead class="thead-inverse">
-                        <tr>
-                            <th></th>
-                            <th>Equipes</th>
-                            <th>Classement</th>
-                            <th>Jeu</th>
-                            <th>Diff</th>
-                            <th>Pts</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <table class="table table-condensed sty-table">
+                        <thead class="thead-inverse">
+                            <tr>
+                                <th></th>
+                                <th>Equipes</th>
+                                <th>Classement</th>
+                                <th>Jeu</th>
+                                <th>Diff</th>
+                                <th>Pts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {% for equipe in equipes %}
                                 <tr>
                                     <td>{% if equipe not in Favoris %}
 
-                                    <a href="#" class="fav" ideq="{{ equipe.id }}" ><span class="glyphicon glyphicon-star-empty"></span></a> 
-                                    {% else %}
-                                    <a href="#" class="nonfav" ideq="{{ equipe.id }}"><span class="glyphicon glyphicon-star"></span></a>
-                                 {% endif %}</td>
-                                    <td>
-                                       <img src="{{ asset('img/' ~ equipe.Media.url ~ '') }}" width="20" height="20"> <a href="{{ path('EquipePresentation', {'equipe': equipe.id}) }}">{{ equipe.nom }}</a>  
-                                    </td>
-                                    <td>{{ equipe.classement }}</td>
-                                    <td>{{ equipe.jeu }}</td>
-                                    <td>{{ equipe.diff }}</td>
-                                    <td>{{ equipe.pts }}</td>
-                                </tr>
-                            {% endfor %}
-                    </tbody>
-                </table>   
-                {% endif %}    
-                
-            </div>
+                                        <a href="#" class="fav" ideq="{{ equipe.id }} " ><span class="glyphicon glyphicon-star-empty"></span></a> 
+                                        {% else %}
+                                        <a href="#" class="nonfav" ideq="{{ equipe.id }}" ><span class="glyphicon glyphicon-star"></span></a>
+                                        {% endif %}</td>
+                                        <td>
+                                            <img src="{{ asset('img/' ~ equipe.Media.url ~ '') }}" width="20" height="20"> <a href="{{ path('EquipePresentation', {'equipe': equipe.id}) }}">{{ equipe.nom }}</a>  
+                                        </td>
+                                        <td>{{ equipe.classement }}</td>
+                                        <td>{{ equipe.jeu }}</td>
+                                        <td>{{ equipe.diff }}</td>
+                                        <td>{{ equipe.pts }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>   
+                                {% endif %}    
 
-        </div> 
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+        <div class="col-sm-11 offset-sm-1"><h4 style="color: #ffcc00;"> Vous devez vous connectez !! </h4>
+      <a href="{{ path('fos_user_security_login') }}" role="button" class="btn btn-primary navbar-btn"><span class="glyphicon glyphicon-lock"></span> Connexion</a>
+                        <a href="{{ path('fos_user_registration_register') }}" role="button" class="btn btn-default navbar-btn"><span class="glyphicon glyphicon-user"></span> S'inscrire</a>
+</div>
+        
+    </div>
+  </div>
+</div>
+                </div>
 
-    </div>   
+            </div> 
+
+        </div>   
 
 
 
-{% endblock %}
-    
-    
+                        {% endblock %}
+
+{% block javascripts %}
+
+    <script type="text/javascript">
+
+        function addFav() {
+            //    $("a.fav").click(function () {
+            var this$ = $(this);
+            var objpar = this$.parent("td");
+            var objhtml = objpar.parent("tr").find("td").eq(1).html();
+            var ideq = this$.attr("ideq");
+            var url = Routing.generate('AjouterMesEquipes', {'id': ideq});
+            $.ajax({
+                url: url,
+                type: 'get',
+                beforeSend: function () {
+                    //            this$.html('<div class="loading"></div>')
+                    $("#Mesequipes").append('<li style="padding: 5px;height: 30px;">' + objhtml + '</li>')
+                    this$.html('<span class="glyphicon glyphicon-star"></span>')
+                    this$.unbind('click');
+                },
+                success: function () {
+                    this$.attr('title', '[-] Remove from favorites')
+                    this$.unbind('click')
+                    this$.bind('click', removeFav);
+                }
+            });
+        }
+
+        function removeFav() {
+            var this$ = $(this);
+            var ideq = this$.attr("ideq");
+            var url = Routing.generate('SuprrimerMesEquipes', {'id': ideq});
+            $.ajax({
+                url: url,
+                type: 'get',
+                beforeSend: function () {
+                    this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+                    this$.unbind('click');
+                },
+                success: function () {
+                    this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+                    this$.attr('title', '[+] Add as favorite')
+                    this$.unbind('click')
+                    this$.bind('click', addFav);
+                }
+            });
+        }
+        function msgLogin() {
+            $(this).attr('data-toggle','modal');
+            $(this).attr('data-target','.bs-example-modal-sm');
+        }
+        //this will make the link listen to function addFav (you might know this already)
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        $('a.fav').bind('click', addFav);
+        $('a.nonfav').bind('click', removeFav);
+        {% else %}
+            $('a.fav').bind('click', msgLogin);
+        $('a.nonfav').bind('click', msgLogin);
+            
+         {% endif %}
+
+
+    </script>
+{% endblock %}    

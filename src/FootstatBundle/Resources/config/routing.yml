@@ -43,9 +43,13 @@ DataEquipes:
 AjouterMesEquipes:
     path:     /addequipe/{id}
     defaults: { _controller: UtilisateursBundle:Utilisateurs:Addequipe }
+    options:
+        expose: true
 SuprrimerMesEquipes:
     path:     /removeequipe/{id}
     defaults: { _controller: UtilisateursBundle:Utilisateurs:Removeequipe }
+    options:
+        expose: true
     
 MesEquipesFavoris:
     path:     /me/equipes
