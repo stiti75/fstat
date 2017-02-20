@@ -22,7 +22,7 @@ class LoadMediaData extends AbstractFixture implements OrderedFixtureInterface
         
         $lgMedia = new Media();
         $lgMedia->setAlt('Laliga');
-        $lgMedia->setUrl('https://pbs.twimg.com/profile_images/789595967746088960/XFF8Yvah_400x400.jpg');
+        $lgMedia->setUrl('https://lh3.googleusercontent.com/p0aA9x4H41Xc9AMVRW7Ssb3YcqG2tzcSZliUOi7aHxxJVa4k6LDllP7JFMKLmeobqYc=w300');
         
         $blMedia = new Media();
         $blMedia->setAlt('Bundisliga');

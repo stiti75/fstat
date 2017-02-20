@@ -24,7 +24,7 @@ class LoadChampionnatData extends AbstractFixture implements OrderedFixtureInter
         $lpChampionnat->setMedia($this->getReference('lp-media'));
         
         $lgChampionnat = new Championnat();
-        $lgChampionnat->setNom('Lliga');
+        $lgChampionnat->setNom('Laliga');
         $lgChampionnat->setUrl('http://www.lequipe.fr/Football/championnat-d-espagne-classement.html');
         $lgChampionnat->setMedia($this->getReference('lg-media'));
         

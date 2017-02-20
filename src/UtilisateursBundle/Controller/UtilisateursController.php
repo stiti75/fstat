@@ -45,5 +45,12 @@ class UtilisateursController extends Controller
             'user' => $user
         ));
     }
+    public function MesequipesAction()
+    {
+        $user = $this->getUser();
+        return $this->render('UtilisateursBundle:Default:Mesequipes.html.twig', array(
+            'user' => $user
+        ));
+    }
     
 }

@@ -5,19 +5,21 @@
  */
 
 
-function addFav() {
+  function addFav() {
 //    $("a.fav").click(function () {
     var this$ = $(this);
+    var objpar = this$.parent("td");
+    var objhtml = objpar.parent("tr").find("td").eq(1).html();
     var ideq = this$.attr("ideq");
     $.ajax({
         url: "http://localhost/footstat/web/app_dev.php/addequipe/" + ideq, type: 'get',
         beforeSend: function () {
 //            this$.html('<div class="loading"></div>')
+            $("#Mesequipes").append('<li style="padding: 5px;height: 30px;">'+objhtml+'</li>')
             this$.html('<span class="glyphicon glyphicon-star"></span>')
             this$.unbind('click');
         },
         success: function () {
-            this$.html('<span class="glyphicon glyphicon-star"></span>')
             this$.attr('title', '[-] Remove from favorites')
             this$.unbind('click')
             this$.bind('click', removeFav);
