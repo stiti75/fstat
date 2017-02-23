@@ -25,12 +25,20 @@ class Utilisateurs extends BaseUser
 
    */
     private $equipes;
+    
+    /**
+
+   * @ORM\ManyToMany(targetEntity="FootstatBundle\Entity\Combine", cascade={"persist"})
+
+   */
+    private $combines;
    
     public function __construct()
     {
         parent::__construct();
         // your own logic
         $this->equipes = new ArrayCollection();
+        $this->combines = new ArrayCollection();
     }
      public function addEquipe(Equipes $equipe)
   {
@@ -50,6 +58,26 @@ class Utilisateurs extends BaseUser
   public function getEquipes()
   {
     return $this->equipes;
+  }
+
+   public function addCombine(Combine $combine)
+  {
+    // Ici, on utilise l'ArrayCollection vraiment comme un tableau
+    $this->combines[] = $combine;
+
+    return $this;
+  }
+
+  public function removeCombine(Combines $combine)
+  {
+    // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+    $this->combines->removeElement($combine);
+  }
+
+  // Notez le pluriel, on récupère une liste de catégories ici !
+  public function getCombines()
+  {
+    return $this->combines;
   }
 
 }

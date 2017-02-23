@@ -147,12 +147,16 @@
         function removeFav() {
             var this$ = $(this);
             var ideq = this$.attr("ideq");
+             var objpar = this$.parent("td");
+            var objhtml = objpar.parent("tr").find("td").eq(1).find("a").eq(0).html();
+            //alert(objhtml);
             var url = Routing.generate('SuprrimerMesEquipes', {'id': ideq});
             $.ajax({
                 url: url,
                 type: 'get',
                 beforeSend: function () {
                     this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+                    $("li").remove(":contains('"+objhtml+"')")
                     this$.unbind('click');
                 },
                 success: function () {
