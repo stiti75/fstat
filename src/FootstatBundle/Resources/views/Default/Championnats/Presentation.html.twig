@@ -40,17 +40,20 @@
                             <th>Domicile</th>
                             <th>Score</th>
                             <th>Extérieur</th>
+                            <th>Parie</th>
                         </tr>
                     </thead>
                     <tbody> 
                         {% if calmatches>0 %}
                             {% for matche in calmatches %}
 
-                                <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
+                                <tr>
                                     <td>{{ matche.date|date('d-m-Y') }}</td>
                                     <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
                                     <td>{{ matche.date|date('H:i') }}</td>
                                     <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
+                                    <td><a href="#" class="btn btn-primary pari"> + </a></td>
+                                    <td><a href="{{ path('DataEquipes', {'matchid': matche.id}) }}" class="btn btn-primary"><span class="glyphicon glyphicon-stats"></span> </a></td>
                                 </tr>
 
                             {% endfor %}       
@@ -143,7 +146,15 @@
                 }
             });
         }
-
+        
+        function addCmb() {
+            //    $("a.fav").click(function () {
+            var this$ = $(this);
+            if ( $("#combi").css('display') == 'none' ){
+    // element is hidden
+    $("#combi").show();
+};
+        }
         function removeFav() {
             var this$ = $(this);
             var ideq = this$.attr("ideq");
@@ -175,6 +186,7 @@
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
         $('a.fav').bind('click', addFav);
         $('a.nonfav').bind('click', removeFav);
+        $('a.pari').bind('click', addCmb);
         {% else %}
             $('a.fav').bind('click', msgLogin);
         $('a.nonfav').bind('click', msgLogin);

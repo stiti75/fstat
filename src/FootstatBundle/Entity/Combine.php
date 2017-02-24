@@ -27,7 +27,13 @@ class Combine
      * @ORM\Column(name="date", type="datetime")
      */
     private $date;
-
+    
+     /**
+     * @var int
+     *
+     * @ORM\Column(name="saved", type="integer")
+     */
+    private $saved;
 
     /**
      * Get id
@@ -60,5 +66,28 @@ class Combine
     public function getDate()
     {
         return $this->date;
+    }
+    
+    /**
+     * Set saved
+     *
+     * @param integer $saved
+     * @return Equipes
+     */
+    public function setSaved($saved)
+    {
+        $this->saved = $saved;
+
+        return $this;
+    }
+
+    /**
+     * Get saved
+     *
+     * @return integer 
+     */
+    public function getSaved()
+    {
+        return $this->saved;
     }
 }
