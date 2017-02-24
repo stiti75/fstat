@@ -55,5 +55,18 @@ class UtilisateursController extends Controller
             'user' => $user
         ));
     }
-    
+    public function OpencombineAction()
+    {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $combines = $user->getCombines();
+        foreach ($combines as $combine){
+            if ($combine->getSaved() == 0){
+               $paries = $em->getRepository('FootstatBundle:Parie')->findBy(array('combine' => $combine->getId())); 
+            }
+        }
+        return $this->render('UtilisateursBundle:Default:Opencombine.html.twig', array(
+            'paries' => $paries
+        ));
+    }
 }

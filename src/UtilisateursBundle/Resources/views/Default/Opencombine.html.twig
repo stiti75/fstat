@@ -1,0 +1,14 @@
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+
+{% if paries| length>0 %}
+    {% for parie in paries %}
+    <li style="padding: 5px;height: 30px;">
+        <span><a href="{{ path('DataEquipes', {'matchid': parie.match.id}) }}" class="btn btn-primary" >{{ parie.match.date|date('d-m-Y') }} : </a></span> 
+        <a href="{{ path('EquipePresentation', {'equipe': parie.match.equipeDom.id}) }}">{{ parie.match.equipeDom.nom }}</a> VS 
+        <a href="{{ path('EquipePresentation', {'equipe': parie.match.equipeExt.id}) }}">{{ parie.match.equipeExt.nom }}</a>
+    </li>
+    {% endfor %}
+{% endif %}
+{% else %}
+    <li style="padding: 5px;height: 30px;"> Connectez vous !!</li>
+{% endif %}

@@ -54,3 +54,9 @@ SuprrimerMesEquipes:
 MesEquipesFavoris:
     path:     /me/equipes
     defaults: { _controller: UtilisateursBundle:Utilisateurs:Favoris }
+
+AddCombine:
+    path:     /combine/add/{idmatch}
+    defaults: { _controller: FootstatBundle:Parie:Combine }
+    options:
+        expose: true

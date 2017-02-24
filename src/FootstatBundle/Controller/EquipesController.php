@@ -23,10 +23,11 @@ class EquipesController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');
         $champio = $em->getRepository('FootstatBundle:Championnat')->find($championnat);
+        $combines = $user->getCombines();
         $equipes = $repository->byChampionnat($championnat);
         $matcheslast = $em->getRepository('FootstatBundle:Matches')->findBy(array('championnat' => $championnat, 'type' => 0),array('date' => 'DESC'),10);
         $calmatches = $em->getRepository('FootstatBundle:Matches')->byNextmChamp($championnat);
-        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('championnat' => $champio,'equipes' => $equipes, 'matches' => $matcheslast, 'calmatches' => $calmatches, 'Favoris' => $favoris));
+        return $this->render('FootstatBundle:Default:Championnats\Presentation.html.twig', array('championnat' => $champio,'equipes' => $equipes, 'matches' => $matcheslast, 'calmatches' => $calmatches, 'Favoris' => $favoris, 'combines' => $combines));
     }
 
     // Affichage détails d'une equipe
