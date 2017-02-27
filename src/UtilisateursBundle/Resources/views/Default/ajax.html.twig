@@ -1,0 +1,143 @@
+{% block javascripts %}
+
+    <script type="text/javascript">
+
+        function addFav() {
+            //    $("a.fav").click(function () {
+            var this$ = $(this);
+            var objpar = this$.parent("td");
+            var objhtml = objpar.parent("tr").find("td").eq(1).html();
+            var ideq = this$.attr("ideq");
+            var url = Routing.generate('AjouterMesEquipes', {'id': ideq});
+            $.ajax({
+                url: url,
+                type: 'get',
+                beforeSend: function () {
+                    //            this$.html('<div class="loading"></div>')
+                    $("#Mesequipes").append('<li style="padding: 5px;height: 30px;">' + objhtml + '</li>')
+                    this$.html('<span class="glyphicon glyphicon-star"></span>')
+                    this$.unbind('click');
+                },
+                success: function () {
+                    this$.attr('title', '[-] Remove from favorites')
+                    this$.unbind('click')
+                    this$.bind('click', removeFav);
+                }
+            });
+        }
+
+        function addCmb() {
+            //    $("a.fav").click(function () {
+            var this$ = $(this);
+            if ( $("#combi").css('display') == 'none' ){
+        // element is hidden
+                $("#combi").show();
+                var idmatch = $(this).attr('id');
+                var url = Routing.generate('AddCombine', {'idmatch': idmatch});
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    beforeSend: function () {
+                        
+                    },
+                    success: function () {
+                    }
+                });
+            };
+        }
+        
+        function addParie() {
+            //    $("a.fav").click(function () {
+            var this$ = $(this);
+
+        // element is hidden
+                var idmatch = $(this).attr('id');
+                var url = Routing.generate('AddParie', {'idmatch': idmatch});
+                var objpar = this$.parent("td");
+                var datem = objpar.parent("tr").find("td").eq(0).html();
+                var heure = objpar.parent("tr").find("td").eq(2).html();
+              var lien = objpar.parent("tr").find("td").eq(5).find("a").eq(0).attr('href');
+              var eqdom = objpar.parent("tr").find("td").eq(1).find("a").eq(0).html();
+              var eqext = objpar.parent("tr").find("td").eq(3).find("a").eq(0).html();
+                $.ajax({
+                    url: url,
+                    type: 'get',
+                    beforeSend: function () {
+                        $("#paries").append('<li style="padding: 5px;height: 30px;"><span><a href="'+lien+'" >'+datem+'-'+heure+'</a></span> '+eqdom+' - '+eqext+'</li>');
+                    },
+                    success: function () {
+                       
+                    }
+                });
+  
+        }
+        
+        function removeFav() {
+            var this$ = $(this);
+            var ideq = this$.attr("ideq");
+             var objpar = this$.parent("td");
+            var objhtml = objpar.parent("tr").find("td").eq(1).find("a").eq(0).html();
+            //alert(objhtml);
+            var url = Routing.generate('SuprrimerMesEquipes', {'id': ideq});
+            $.ajax({
+                url: url,
+                type: 'get',
+                beforeSend: function () {
+                    this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+                    $("li").remove(":contains('"+objhtml+"')")
+                    this$.unbind('click');
+                },
+                success: function () {
+                    this$.html('<span class="glyphicon glyphicon-star-empty"></span>')
+                    this$.attr('title', '[+] Add as favorite')
+                    this$.unbind('click')
+                    this$.bind('click', addFav);
+                }
+            });
+        }
+        function msgLogin() {
+            $(this).attr('data-toggle','modal');
+            $(this).attr('data-target','.bs-example-modal-sm');
+        }
+        function removecmb() {
+            var this$ = $(this);
+            alert('objhtml');
+            var url = Routing.generate('RemoveopenCombine');
+            $.ajax({
+                url: url,
+                type: 'get',
+                beforeSend: function () {
+                    $("#combi").remove();
+                },
+                success: function () {
+                }
+            });
+        }
+
+$('#removecmb').bind('click', removecmb);
+        //this will make the link listen to function addFav (you might know this already)
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        $('a.fav').bind('click', addFav);
+        $('a.nonfav').bind('click', removeFav);
+
+            {% if combines|length != 0%}
+                {% for combine in combines %}
+                    {% if combine.saved == 0 %}
+                        $("#combi").show();
+                        $('a.pari').bind('click', addParie);
+                    {% else %}
+                        $('a.pari').bind('click', addCmb);
+                    {% endif %}    
+                {% endfor %}    
+            {% else %}    
+            $('a.pari').bind('click', addCmb);
+            {% endif %}
+        {% else %}
+            $('a.fav').bind('click', msgLogin);
+        $('a.nonfav').bind('click', msgLogin);
+
+        {% endif %}
+
+
+    </script>
+{% endblock %}

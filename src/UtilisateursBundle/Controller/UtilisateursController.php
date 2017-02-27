@@ -68,7 +68,19 @@ class UtilisateursController extends Controller
             $paries = [];
         }
         return $this->render('UtilisateursBundle:Default:Opencombine.html.twig', array(
-                    'paries' => $paries
+                    'paries' => $paries, 'combines' => $combines
+        ));
+    }
+    
+    public function AjaxAction() {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        if (!is_object($user) || !$user instanceof UserInterface) {
+            $combines = [];
+        } else {
+            $combines = $user->getCombines();
+        }
+        return $this->render('UtilisateursBundle:Default:ajax.html.twig', array('combines' => $combines
         ));
     }
     

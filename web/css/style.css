@@ -21,6 +21,9 @@ body {
     font-size: 12px;
     font-weight: bold;    
 }
+.sty-table td {
+    text-align: center;
+}
 
 .title1 {
     color: #999999;

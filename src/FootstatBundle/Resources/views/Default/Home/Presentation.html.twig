@@ -20,18 +20,18 @@
                         </tr>
                     </thead>
                     <tbody> 
-                        {% if match>0 %}
-                            {% for matche in match %}
-                                {% if matche.date|date('d-m-Y') == "now"|date("d-m-Y") %} 
+                        {% if matchday>0 %}
+                            {% for matche in matchday %}
+                       
 
                                     <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
-                                        <td>{{ matche.date|date('d-m-Y') }}</td>
+                                        <td>{{ matche.date|date('d-m') }}</td>
                                         <td><img src="{{ matche.championnat.Media.url }}" width="20" height="20"> </td>
                                         <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
                                         <td>{{ matche.date|date('H:i') }}</td>
                                         <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
                                     </tr>
-                                {% endif %}
+
                             {% endfor %}       
                         {% endif %}
                     </tbody>
@@ -46,23 +46,23 @@
                         <tr>
                             <th>Date</th>
                             <th></th>
-                            <th>Domicile</th>
-                            <th>Score</th>
-                            <th>Extérieur</th>
+                            <th></th>
+                            <th>Heure</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody> 
-                        {% if match>0 %}
-                            {% for matche in match %}
-                                {% if matche.date|date('d-m-Y') >= "now"|date("d-m-Y") %} 
+                        {% if nextmatch>0 %}
+                            {% for matche in nextmatch %}
+               
                                     <tr class="match-row" data-href="{{ path('DataEquipes', {'matchid': matche.id}) }}">
-                                        <td>{{ matche.date|date('d-m-Y') }}</td>
+                                        <td>{{ matche.date|date('d-m') }}</td>
                                         <td><img src="{{ matche.championnat.Media.url }}" width="20" height="20"> </td>
                                         <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeDom.id}) }}">{{ matche.equipeDom.nom }}</a></td>
                                         <td>{{ matche.date|date('H:i') }}</td>
                                         <td><a href="{{ path('EquipePresentation', {'equipe': matche.equipeExt.id}) }}">{{ matche.equipeExt.nom }}</a></td>
                                     </tr>
-                                {% endif %} 
+       
                             {% endfor %}       
                         {% endif %}
                     </tbody>

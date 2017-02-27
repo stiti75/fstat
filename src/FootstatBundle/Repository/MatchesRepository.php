@@ -23,17 +23,34 @@ class MatchesRepository extends EntityRepository
         return $db->getQuery()->getResult();                
     }
     
-    public function byDate($date){
+    public function byDate(){
+        $today = new \DateTime();
         $db = $this->createQueryBuilder('u')
                 ->select('u')
-                ->where('u.date = :date')
+                ->andWhere('u.date > :date_start')
+                ->andWhere('u.date < :date_end')
+                ->andWhere('u.type = 1')
+                ->orderBy('u.date')
+                ->setParameter('date_start', $today->format('Y-m-d 00:00:00'))
+                ->setParameter('date_end',   $today->format('Y-m-d 23:59:59'));
+
+        return $db->getQuery()->getResult();
                 
-                ->setParameter('date', $date." %");
+    }
+    public function allNextmatch(){
+        $now = date('Y-m-d').' 00:00:00';
+        $db = $this->createQueryBuilder('u')
+                ->select('u')
+                ->andWhere('u.date >= :now' )
+                ->andWhere('u.type = 1')
+                ->orderBy('u.date')
+                ->setMaxResults(50)
+                ->setParameter('now', $now);
         return $db->getQuery()->getResult();
                 
     }
    
-    public function byNextmatchs($equipe){
+    public function byNextmatch(){
         $now = date('Y-m-d').' 00:00:00';
         $db = $this->createQueryBuilder('u')
                 ->select('u')

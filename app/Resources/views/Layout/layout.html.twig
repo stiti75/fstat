@@ -106,7 +106,8 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
-{% block javascripts %}{% endblock %}
+    {{ render(controller('UtilisateursBundle:Utilisateurs:Ajax')) }}
+
 </div>
 </body>
 </html>

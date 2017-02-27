@@ -22,8 +22,9 @@ class MatchesController extends Controller {
 
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Matches');
-        $match = $repository->findBy(array('type' => 1),array('date' => 'ASC'),20);
-        return $this->render('FootstatBundle:Default:Home\Presentation.html.twig', array('match'=>$match));
+        $matchday = $repository->byDate();
+        $nextmatch = $repository->allNextmatch();
+        return $this->render('FootstatBundle:Default:Home\Presentation.html.twig', array('matchday'=>$matchday, 'nextmatch' => $nextmatch));
     }
     public function GetStatEquipe($equipe){
         $em = $this->getDoctrine()->getManager();
