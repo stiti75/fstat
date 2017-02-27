@@ -102,8 +102,17 @@ class EquipesCRUDController extends CRUDController {
 
         return $this->macthesEquipeAction($id);
     }
+    
+    public function RemoveallAction(){
+        
+        $em = $this->getDoctrine()->getManager();
+        $results = $em->getRepository('FootstatBundle:Matches')->byExpired();
+        foreach ($results as $result){
+    $em->remove($result);
+}
+    }
 
-    public function macthesEquipeAction($equipe) {
+        public function macthesEquipeAction($equipe) {
 
         $em = $this->getDoctrine()->getManager();
         $matchesdom = $em->getRepository('FootstatBundle:Matches')->findBy(array('equipeDom' => $equipe, 'type' => 0));

@@ -46,20 +46,16 @@ class MatchesRepository extends EntityRepository
                 ->orderBy('u.date')
                 ->setMaxResults(50)
                 ->setParameter('now', $now);
-        return $db->getQuery()->getResult();
-                
+        return $db->getQuery()->getResult();            
     }
    
-    public function byNextmatch(){
+    public function byExpired(){
         $now = date('Y-m-d').' 00:00:00';
         $db = $this->createQueryBuilder('u')
                 ->select('u')
-                ->andWhere('u.equipeDom = :equipe')
-                ->orWhere('u.equipeExt = :equipe')
-                ->andWhere('u.date >= :now' )
+                ->Where('u.date < :now' )
                 ->andWhere('u.type = 1')
                 ->orderBy('u.date')
-                ->setParameter('equipe', $equipe)
                 ->setParameter('now', $now);
         return $db->getQuery()->getResult();
                 
