@@ -34,6 +34,34 @@ class ParieController extends Controller {
         $em->flush();
         return $this->render('FootstatBundle:Default:Combine\Presentation.html.twig');
     }
-
+    public function AddparieAction($idmatch) {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $combines = $user->getCombines();
+        foreach ($combines as $combine) {
+            if ($combine->getSaved() == 0) {
+                $match =$em->getRepository('FootstatBundle:Matches')->find($idmatch);
+                $parie = new Parie;
+                $parie->setCote("1");
+                $parie->setMatch($match);
+                $parie->setCombine($combine);
+                $em->persist($parie);
+                $em->flush();
+            }
+        }
+        return $this->render('FootstatBundle:Default:Combine\Presentation.html.twig');
+    }
+    public function RemoveopencmbAction() {
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+        $combines = $user->getCombines();
+        foreach ($combines as $combine) {
+            if ($combine->getSaved() == 0) {
+                $em->remove($combine); 
+                $em->flush();
+            }
+        }
+        return $this->render('FootstatBundle:Default:Combine\Presentation.html.twig');
+    }
    
 }

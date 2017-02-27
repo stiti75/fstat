@@ -16,14 +16,16 @@ class EquipesController extends Controller {
         $user = $this->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
             $favoris = [];
+            $combines = [];
         } else {
             $favoris = $user->getEquipes();
+            $combines = $user->getCombines();
         }
         
         $em = $this->getDoctrine()->getManager();
         $repository = $em->getRepository('FootstatBundle:Equipes');
         $champio = $em->getRepository('FootstatBundle:Championnat')->find($championnat);
-        $combines = $user->getCombines();
+        
         $equipes = $repository->byChampionnat($championnat);
         $matcheslast = $em->getRepository('FootstatBundle:Matches')->findBy(array('championnat' => $championnat, 'type' => 0),array('date' => 'DESC'),10);
         $calmatches = $em->getRepository('FootstatBundle:Matches')->byNextmChamp($championnat);

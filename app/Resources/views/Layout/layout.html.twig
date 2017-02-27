@@ -43,6 +43,22 @@
             </nav>
         </div>
     </header>
+                   
+<div class="col-md-3 col-md-offset-9 sty-table thumbnail" id="combi" style="display: none;position: fixed;z-index: 100;top: 200px;">
+    <div class="row bg-primary" style="padding: 5px;">
+        <div class="col-md-3"><p><span class="glyphicon glyphicon-globe"></span>  Combine</p></div><div class="col-md-1 col-md-offset-7"><a href="#" id="removecmb" class="btn-danger" style="padding: 2px;"><span class="glyphicon glyphicon-remove"></span></a></div>
+    </div>
+    <div>
+        <ul id="paries" class="list-unstyled" style="background-color: #eee;">
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% render(controller('UtilisateursBundle:Utilisateurs:Opencombine')) %} 
+            {% endif %}
+        </ul>
+    </div>  
+</div> 
+
+                   
+                   
     <div class="container content" style="margin-top: 20px;">
 
 

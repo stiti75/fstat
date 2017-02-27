@@ -60,3 +60,15 @@ AddCombine:
     defaults: { _controller: FootstatBundle:Parie:Combine }
     options:
         expose: true
+
+AddParie:
+    path:     /Parie/add/{idmatch}
+    defaults: { _controller: FootstatBundle:Parie:Addparie }
+    options:
+        expose: true
+
+RemoveopenCombine:
+    path:     /opencombine/delete
+    defaults: { _controller: FootstatBundle:Parie:Removeopencmb }
+    options:
+        expose: true
